@@ -20,6 +20,10 @@ public class Blindbox {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+    String name;
+    int price;
+    int stock;
+    boolean active;
 
     //Relationship with brand
     @ManyToOne(fetch = FetchType.LAZY)
