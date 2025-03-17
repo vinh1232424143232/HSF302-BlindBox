@@ -65,6 +65,10 @@
 							<a href="/hsf/cart">Cart</a>
 						</li>
 
+						<li>
+							<a href="/hsf/user">Profile</a>
+						</li>
+
 
 					</ul>
 				</div>

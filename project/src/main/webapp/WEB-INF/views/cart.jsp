@@ -31,74 +31,79 @@
 <!--===============================================================================================-->
 </head>
 <body class="animsition">
-	
-	<!-- Header -->
-	<header class="header-v2">
-		<!-- Header desktop -->
-		<div class="container-menu-desktop trans-03">
-			<div class="wrap-menu-desktop">
-				<nav class="limiter-menu-desktop p-l-45">
 
-					<!-- Logo desktop -->
-					<a href="/hsf/home" class="logo">
-						<img src="images/icons/logo-01.png" alt="IMG-LOGO">
-					</a>
+<!-- Header -->
+<header class="header-v2">
+	<!-- Header desktop -->
+	<div class="container-menu-desktop trans-03">
+		<div class="wrap-menu-desktop">
+			<nav class="limiter-menu-desktop p-l-45">
 
-					<!-- Menu desktop -->
-					<div class="menu-desktop">
-						<ul class="main-menu">
-							<li class="active-menu">
-								<a href="/hsf/home">Home</a>
-							</li>
+				<!-- Logo desktop -->
+				<a href="/hsf/home" class="logo">
+					<img src="images/icons/logo-01.png" alt="IMG-LOGO">
+				</a>
 
-							<li>
-								<a href="/hsf/product">Shop</a>
-							</li>
+				<!-- Menu desktop -->
+				<div class="menu-desktop">
+					<ul class="main-menu">
+						<li class="active-menu">
+							<a href="/hsf/home">Home</a>
+						</li>
 
-							<li>
-								<a href="/hsf/cart">Cart</a>
-							</li>
+						<li>
+							<a href="/hsf/product">Shop</a>
+						</li>
+
+						<li>
+							<a href="/hsf/cart">Cart</a>
+						</li>
+
+						<li>
+							<a href="/hsf/user">Profile</a>
+						</li>
 
 
-						</ul>
-					</div>
+					</ul>
+				</div>
 
-					<!-- Icon header -->
-					<div class="wrap-icon-header flex-w flex-r-m h-full">
-						<div class="flex-c-m h-full p-r-24">
-							<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-modal-search">
-								<i class="zmdi zmdi-search"></i>
-							</div>
-						</div>
-
-						<div class="flex-c-m h-full p-lr-19">
-							<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11">
-								<a href="${pageContext.request.contextPath}/logout" style="color: inherit;">
-									<i class="zmdi zmdi-power"></i>
-								</a>
-							</div>
+				<!-- Icon header -->
+				<div class="wrap-icon-header flex-w flex-r-m h-full">
+					<div class="flex-c-m h-full p-r-24">
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-modal-search">
+							<i class="zmdi zmdi-search"></i>
 						</div>
 					</div>
-				</nav>
-			</div>
+
+					<div class="flex-c-m h-full p-lr-19">
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11">
+							<a href="${pageContext.request.contextPath}/logout" style="color: inherit;">
+								<i class="zmdi zmdi-power"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+			</nav>
 		</div>
+	</div>
 
-		<!-- Modal Search -->
-		<div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
-			<div class="container-search-header">
-				<button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-					<img src="images/icons/icon-close2.png" alt="CLOSE">
+	<!-- Modal Search -->
+	<div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
+		<div class="container-search-header">
+			<button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
+				<img src="images/icons/icon-close2.png" alt="CLOSE">
+			</button>
+
+			<form class="wrap-search-header flex-w p-l-15">
+				<button class="flex-c-m trans-04">
+					<i class="zmdi zmdi-search"></i>
 				</button>
-
-				<form class="wrap-search-header flex-w p-l-15">
-					<button class="flex-c-m trans-04">
-						<i class="zmdi zmdi-search"></i>
-					</button>
-					<input class="plh3" type="text" name="search" placeholder="Search...">
-				</form>
-			</div>
+				<input class="plh3" type="text" name="search" placeholder="Search...">
+			</form>
 		</div>
-	</header>
+	</div>
+</header>
+
 
 	<!-- Cart -->
 	<div class="wrap-header-cart js-panel-cart">
@@ -185,13 +190,12 @@
 		</div>
 	</div>
 
-
 	<!-- breadcrumb -->
 	<div class="container">
 		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
 			<a href="/hsf/home" class="stext-109 cl8 hov-cl1 trans-04">
 				Home
-				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="false"></i>
 			</a>
 
 			<span class="stext-109 cl4">
@@ -199,8 +203,6 @@
 			</span>
 		</div>
 	</div>
-		
-
 	<!-- Shoping Cart -->
 	<form class="bg0 p-t-75 p-b-85">
 		<div class="container">
@@ -297,16 +299,16 @@
 							</div>
 						</div>
 
-						<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+						<a href="/hsf/payment"
+						   class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
 							Proceed to Checkout
-						</button>
+						</a>
+
 					</div>
 				</div>
 			</div>
 		</div>
 	</form>
-
-
 
 
 	<!-- Footer -->

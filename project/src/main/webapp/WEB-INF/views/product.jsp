@@ -38,7 +38,7 @@
 <body class="animsition">
 
 <!-- Header -->
-	<header class="header-v2">
+<header class="header-v2">
 	<!-- Header desktop -->
 	<div class="container-menu-desktop trans-03">
 		<div class="wrap-menu-desktop">
@@ -62,6 +62,10 @@
 
 						<li>
 							<a href="/hsf/cart">Cart</a>
+						</li>
+
+						<li>
+							<a href="/hsf/user">Profile</a>
 						</li>
 
 

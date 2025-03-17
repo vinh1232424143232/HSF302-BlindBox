@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/order")
-public class OrderController {
-    @GetMapping("/all")
-    public String all() {
-        return "order";
+@RequestMapping("/payment")
+public class PaymentController {
+    @GetMapping()
+    public String payment() {
+        return "fail";
     }
 }
