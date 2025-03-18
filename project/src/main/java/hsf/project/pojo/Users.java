@@ -12,7 +12,6 @@ import java.util.List;
 @Table
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -126,5 +125,17 @@ public class Users {
 
     public void setCart(Cart cart) {
         this.cart = cart;
+    }
+
+    public Users() {
+    }
+
+    public Users(String fullName, String email, String password, String phone) {
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+        this.active = true;
+        this.role = new Roles();
     }
 }

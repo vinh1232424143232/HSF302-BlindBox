@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Login</title>
+    <title>Register</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -65,13 +65,12 @@
             </nav>
         </div>
     </div>
-
 </header>
 
-<!-- Login Section -->
+<!-- Register Section -->
 <section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('${pageContext.request.contextPath}/images/bg-01.jpg');">
     <h2 class="ltext-105 cl0 txt-center">
-        L O G I N
+        R E G I S T E R
     </h2>
 </section>
 
@@ -81,32 +80,43 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="bor10 p-lr-40 p-t-30 p-b-40 m-lr-0-xl p-lr-15-sm">
-                    <form action="${pageContext.request.contextPath}/login" method="post">
+                    <form action="/hsf/user/register" method="post">
                         <h4 class="mtext-109 cl2 p-b-30 txt-center">
-                            Login
+                            Create an Account
                         </h4>
 
-
-
                         <div class="bor8 m-b-20 how-pos4-parent">
-                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" id="email" name="email" placeholder="Email" required>
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" id="fullName" name="fullName" placeholder="Full Name" required>
                         </div>
 
-                        <div class="bor8 m-b-30 how-pos4-parent">
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="email" id="email" name="email" placeholder="Email Address" required>
+                        </div>
+
+                        <div class="bor8 m-b-20 how-pos4-parent">
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="tel" id="phone" name="phone" placeholder="Phone Number">
+                        </div>
+
+                        <div class="bor8 m-b-20 how-pos4-parent">
                             <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" id="password" name="password" placeholder="Password" required>
                         </div>
 
+                        <div class="bor8 m-b-30 how-pos4-parent">
+                            <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
+                        </div>
+
                         <button type="submit" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">
-                            Login
+                            Register
                         </button>
+
                         <div style="text-align: center; padding: 20px">
                             <p th:if="${error}" style="align-items: center; color: red">${error}</p>
                         </div>
 
                         <div class="flex-w flex-sb-m p-t-20 txt-center">
-								<span class="w-full">
-									<a href="/hsf/user/register" class="txt1">Register</a>
-								</span>
+                            <span class="w-full">
+                                Already have an account? <a href="${pageContext.request.contextPath}/login" class="txt1">Login</a>
+                            </span>
                         </div>
                     </form>
                 </div>
@@ -149,7 +159,6 @@
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> &amp; distributed by <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-
             </p>
         </div>
     </div>
@@ -157,9 +166,9 @@
 
 <!-- Back to top -->
 <div class="btn-back-to-top" id="myBtn">
-		<span class="symbol-btn-back-to-top">
-			<i class="zmdi zmdi-chevron-up"></i>
-		</span>
+    <span class="symbol-btn-back-to-top">
+        <i class="zmdi zmdi-chevron-up"></i>
+    </span>
 </div>
 
 <!--===============================================================================================-->
@@ -201,5 +210,21 @@
 <!--===============================================================================================-->
 <script src="${pageContext.request.contextPath}/js/main.js"></script>
 
+<!-- Password validation script -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form');
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirmPassword');
+        
+        form.addEventListener('submit', function(event) {
+            if (password.value !== confirmPassword.value) {
+                event.preventDefault();
+                alert('Passwords do not match!');
+            }
+        });
+    });
+</script>
+
 </body>
-</html>
+</html> 
