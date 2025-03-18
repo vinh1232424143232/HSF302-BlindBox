@@ -14,9 +14,27 @@ public class UserService implements IUserService {
     @Autowired
     private UserRepository userRepository;
 
+    public Users login(String email) {
+        return userRepository.findByEmail(email);
+    }
 
     @Override
-    public Users login(String email, String password) {
-        return userRepository.findByEmailAndPassword(email, password);
+    public Users create(Users user) {
+        return userRepository.save(user);
+    }
+
+    @Override
+    public Users getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public Users updateUser(Users user) {
+        return null;
+    }
+
+    @Override
+    public void deleteUser(Users user) {
+
     }
 }

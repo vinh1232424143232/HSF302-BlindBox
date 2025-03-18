@@ -26,19 +26,23 @@ public class LoginController {
 
     @PostMapping("/login")
     public String login(@RequestParam String email, @RequestParam String password, HttpSession session, Model model) {
-        Users user = userService.login(email, password);
+        Users user = userService.login(email);
         if (user != null) {
-            switch (user.getRole().getRole()) {
-                case "ADMIN":
-                    session.setAttribute("user", user);
-                    return "redirect:/management";
-                case "USER":
-                    session.setAttribute("user", user);
-                    return "redirect:/home";
+            if (!user.getPassword().equals(password)) {
+                model.addAttribute("error", "Wrong password");
+            } else {
+                switch (user.getRole().getRole()) {
+                    case "ADMIN":
+                        session.setAttribute("user", user);
+                        return "redirect:/management";
+                    case "USER":
+                        session.setAttribute("user", user);
+                        return "redirect:/home";
 
+                }
             }
         } else {
-            model.addAttribute("error", "Invalid username or password");
+            model.addAttribute("error", "User not found");
         }
         return "login";
     }

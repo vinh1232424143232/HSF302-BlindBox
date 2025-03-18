@@ -86,16 +86,7 @@
                             Login
                         </h4>
 
-                        <%
-                            String error = request.getParameter("error");
-                            if(error != null && error.equals("1")) {
-                        %>
-                        <div class="alert alert-danger" role="alert">
-                            INCORRECT!
-                        </div>
-                        <%
-                            }
-                        %>
+
 
                         <div class="bor8 m-b-20 how-pos4-parent">
                             <input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" id="email" name="email" placeholder="Email" required>
@@ -108,6 +99,9 @@
                         <button type="submit" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">
                             Login
                         </button>
+                        <div style="text-align: center; padding: 20px">
+                            <p th:if="${error}" style="align-items: center; color: red">${error}</p>
+                        </div>
 
                         <div class="flex-w flex-sb-m p-t-20 txt-center">
 								<span class="w-full">

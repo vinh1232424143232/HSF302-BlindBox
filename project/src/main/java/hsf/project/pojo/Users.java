@@ -22,6 +22,7 @@ public class Users {
     int id;
 
     String fullName;
+    @Column(unique = true)
     String email;
     String password;
     String phone;
