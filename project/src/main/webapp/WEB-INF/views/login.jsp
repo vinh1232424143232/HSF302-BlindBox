@@ -46,7 +46,7 @@
             <nav class="limiter-menu-desktop p-l-45">
 
                 <!-- Logo desktop -->
-                <a href="${pageContext.request.contextPath}/hsf/home" class="logo">
+                <a href="/hsf/home" class="logo">
                     <img src="${pageContext.request.contextPath}/images/icons/logo-01.png" alt="IMG-LOGO">
                 </a>
 
@@ -54,11 +54,11 @@
                 <div class="menu-desktop">
                     <ul class="main-menu">
                         <li>
-                            <a href="${pageContext.request.contextPath}/hsf/home">Home</a>
+                            <a href="/hsf/home">Home</a>
                         </li>
 
                         <li>
-                            <a href="${pageContext.request.contextPath}/product.html">Shop</a>
+                            <a href="/hsf/product">Shop</a>
                         </li>
                     </ul>
                 </div>
@@ -81,7 +81,7 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="bor10 p-lr-40 p-t-30 p-b-40 m-lr-0-xl p-lr-15-sm">
-                    <form action="${pageContext.request.contextPath}/login" method="post">
+                    <form action="/hsf/login" method="post">
                         <h4 class="mtext-109 cl2 p-b-30 txt-center">
                             Login
                         </h4>

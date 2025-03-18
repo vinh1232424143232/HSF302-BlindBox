@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class UserService implements IUserService {
         return userRepository.findByEmail(email);
     }
 
+    @Transactional
     @Override
     public void create(Users user) {
         userRepository.save(user);
@@ -38,6 +40,7 @@ public class UserService implements IUserService {
         return userRepository.findByEmail(email);
     }
 
+    @Transactional
     @Override
     public boolean updateUser(String email, String fullName, String currentPassword, String newPassword, String phone) {
         Users user = userRepository.findByEmail(email);
@@ -51,6 +54,7 @@ public class UserService implements IUserService {
         return false;
     }
 
+    @Transactional
     @Override
     public boolean deleteUser(String email) {
         Users user = userRepository.findByEmail(email);

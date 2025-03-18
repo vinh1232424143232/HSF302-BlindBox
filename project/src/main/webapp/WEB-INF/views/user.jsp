@@ -192,6 +192,9 @@
 									</button>
 								</div>
 							</form>
+							<div style="text-align: center; padding: 20px">
+								<p th:if="${status}" style="align-items: center; color: #840000">${status}</p>
+							</div>
 						</div>
 					</div>
 					</div>

@@ -160,22 +160,17 @@
 										<h5 class="mtext-105 cl2">${user.fullName}</h5>
 										<p class="stext-115 cl6 m-b-5">${address.number} ${address.street}</p>
 										<p class="stext-115 cl6 m-b-5">${address.city}</p>
-										<c:if test="${address.isDefault}">
-											<span class="badge badge-primary">Default Address</span>
-										</c:if>
 									</div>
 									<div class="col-md-4 text-right">
 										<button type="button" class="btn btn-sm btn-info mb-2" data-toggle="modal" data-target="#editAddressModal${address.id}">
 											<i class="zmdi zmdi-edit"></i> Edit
 										</button>
-										<c:if test="${!address.isDefault}">
 											<form action="/hsf/address/delete" method="post" class="d-inline">
-												<input type="hidden" name="addressId" value="${address.id}">
+												<input type="hidden" name="id" value="${address.id}">
 												<button type="submit" class="btn btn-sm btn-danger">
 													<i class="zmdi zmdi-delete"></i> Delete
 												</button>
 											</form>
-										</c:if>
 									</div>
 								</div>
 							</div>
@@ -197,6 +192,7 @@
 													<div class="col-md-6 form-group">
 														<label>Street Number</label>
 														<input type="text" name="number" class="form-control" value="${address.number}" required>
+														<input type="hidden" name="id" class="form-control" value="${address.id}">
 													</div>
 													<div class="col-md-6 form-group">
 														<label>Street Name</label>
@@ -207,14 +203,6 @@
 													<div class="col-md-12 form-group">
 														<label>City</label>
 														<input type="text" name="city" class="form-control" value="${address.city}" required>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-md-12 form-group">
-														<div class="custom-control custom-checkbox mt-4">
-															<input type="checkbox" class="custom-control-input" id="editDefaultAddress${address.id}" name="isDefault" ${address.isDefault ? 'checked' : ''}>
-															<label class="custom-control-label" for="editDefaultAddress${address.id}">Set as default address</label>
-														</div>
 													</div>
 												</div>
 											</div>
@@ -254,7 +242,7 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<form action="/hsf/address/add" method="post">
+			<form action="/hsf/address/create" method="post">
 				<div class="modal-body">
 					<div class="row">
 						<div class="col-md-6 form-group">
@@ -270,14 +258,6 @@
 						<div class="col-md-12 form-group">
 							<label>City</label>
 							<input type="text" name="city" class="form-control" required>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-12 form-group">
-							<div class="custom-control custom-checkbox mt-4">
-								<input type="checkbox" class="custom-control-input" id="defaultAddress" name="isDefault">
-								<label class="custom-control-label" for="defaultAddress">Set as default address</label>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -319,14 +299,6 @@
 							<input type="text" name="city" class="form-control" value="New York" required>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-md-12 form-group">
-							<div class="custom-control custom-checkbox mt-4">
-								<input type="checkbox" class="custom-control-input" id="editDefaultAddress1" name="isDefault" checked>
-								<label class="custom-control-label" for="editDefaultAddress1">Set as default address</label>
-							</div>
-						</div>
-					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -363,14 +335,6 @@
 						<div class="col-md-12 form-group">
 							<label>City</label>
 							<input type="text" name="city" class="form-control" value="Los Angeles" required>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-12 form-group">
-							<div class="custom-control custom-checkbox mt-4">
-								<input type="checkbox" class="custom-control-input" id="editDefaultAddress2" name="isDefault">
-								<label class="custom-control-label" for="editDefaultAddress2">Set as default address</label>
-							</div>
 						</div>
 					</div>
 				</div>

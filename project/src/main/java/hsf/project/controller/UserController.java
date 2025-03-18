@@ -74,7 +74,7 @@ public class UserController {
     public String update(@RequestParam String fullName, @RequestParam String email, @RequestParam String newPassword, @RequestParam String currentPassword, @RequestParam String phone, Model model) {
         boolean status = userService.updateUser(email, fullName, currentPassword, newPassword, phone);
         if (status) {
-            model.addAttribute("status", "Updated successfully");
+            model.addAttribute("status", "Update successful");
         } else {
             model.addAttribute("status", "Can't update user information");
         }
