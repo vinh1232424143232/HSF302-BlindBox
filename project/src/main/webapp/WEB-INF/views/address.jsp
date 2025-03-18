@@ -228,44 +228,6 @@
 							</div>
 						</c:forEach>
 						
-						<!-- Example addresses (remove in production) -->
-						<div class="address-item bor8 p-3 m-b-20">
-							<div class="row">
-								<div class="col-md-8">
-									<h5 class="mtext-105 cl2">John Doe</h5>
-									<p class="stext-115 cl6 m-b-5">123 Main Street</p>
-									<p class="stext-115 cl6 m-b-5">New York</p>
-									<span class="badge badge-primary">Default Address</span>
-								</div>
-								<div class="col-md-4 text-right">
-									<button type="button" class="btn btn-sm btn-info mb-2" data-toggle="modal" data-target="#editAddressModal1">
-										<i class="zmdi zmdi-edit"></i> Edit
-									</button>
-								</div>
-							</div>
-						</div>
-						
-						<div class="address-item bor8 p-3 m-b-20">
-							<div class="row">
-								<div class="col-md-8">
-									<h5 class="mtext-105 cl2">John Doe</h5>
-									<p class="stext-115 cl6 m-b-5">456 Park Avenue</p>
-									<p class="stext-115 cl6 m-b-5">Los Angeles</p>
-								</div>
-								<div class="col-md-4 text-right">
-									<button type="button" class="btn btn-sm btn-info mb-2" data-toggle="modal" data-target="#editAddressModal2">
-										<i class="zmdi zmdi-edit"></i> Edit
-									</button>
-									<form action="/hsf/address/delete" method="post" class="d-inline">
-										<input type="hidden" name="addressId" value="2">
-										<button type="submit" class="btn btn-sm btn-danger">
-											<i class="zmdi zmdi-delete"></i> Delete
-										</button>
-									</form>
-								</div>
-							</div>
-						</div>
-						
 						<!-- No addresses message -->
 						<c:if test="${empty addresses}">
 							<div class="text-center p-t-20 p-b-20" style="display: none;">

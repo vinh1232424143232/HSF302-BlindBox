@@ -150,7 +150,7 @@
 								Personal Information
 							</h4>
 							
-							<form action="/hsf/user/update-profile" method="post">
+							<form action="/hsf/user/update" method="post">
 								<div class="row">
 									<div class="col-md-12 form-group">
 										<label>Full Name</label>

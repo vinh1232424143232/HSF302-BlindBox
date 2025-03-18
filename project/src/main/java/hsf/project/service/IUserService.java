@@ -2,9 +2,12 @@ package hsf.project.service;
 
 import hsf.project.pojo.Users;
 
+import java.util.List;
+
 public interface IUserService {
-    Users create(Users user);
+    void create(Users user);
     Users getUserByEmail(String email);
-    Users updateUser(Users user);
-    void deleteUser(Users user);
+    boolean updateUser(String email, String fullName, String currentPassword, String newPassword, String phone);
+    boolean deleteUser(String email);
+    List<Users> getAllUsers();
 }
