@@ -62,13 +62,8 @@
 						</li>
 
 						<li>
-							<a href="/hsf/cart">Cart</a>
-						</li>
-
-						<li>
 							<a href="/hsf/user">Profile</a>
 						</li>
-
 
 					</ul>
 				</div>
@@ -76,8 +71,10 @@
 				<!-- Icon header -->
 				<div class="wrap-icon-header flex-w flex-r-m h-full">
 					<div class="flex-c-m h-full p-r-24">
-						<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-modal-search">
-							<i class="zmdi zmdi-search"></i>
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 ">
+							<a href="/hsf/cart" style="color: inherit;">
+								<i class="zmdi zmdi-shopping-cart"></i>
+							</a>
 						</div>
 					</div>
 

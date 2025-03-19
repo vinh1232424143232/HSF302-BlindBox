@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Admin - Product Management</title>
+	<title>Admin - User Management</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!--===============================================================================================-->
@@ -40,7 +40,7 @@
 		body {
 			overflow-x: hidden;
 		}
-		
+
 		/* Sidebar styles */
 		.sidebar {
 			height: 100vh;
@@ -128,7 +128,7 @@
 				width: 0;
 				transition: 0.3s;
 			}
-			
+
 			.sidebar.active {
 				width: 250px;
 			}
@@ -137,7 +137,7 @@
 				margin-left: 0;
 				width: 100%;
 			}
-			
+
 			.main-footer {
 				margin-left: 0;
 			}
@@ -161,7 +161,7 @@
 			<img src="${pageContext.request.contextPath}/images/icons/logo-01.png" alt="IMG-LOGO">
 		</a>
 	</div>
-	
+
 	<ul class="main-menu"  style="display: flex; flex-direction: column">
 		<li>
 			<a href="/hsf/home">
@@ -175,7 +175,7 @@
 				Products
 			</a>
 		</li>
-		<li class="active-menu">
+		<li>
 			<a href="/hsf/management">
 				<i class="zmdi zmdi-settings"></i>
 				Management
@@ -187,7 +187,7 @@
 				Orders
 			</a>
 		</li>
-		<li>
+		<li class="active-menu">
 			<a href="/hsf/management/user">
 				<i class="zmdi zmdi-accounts"></i>
 				Users
@@ -202,140 +202,87 @@
 	</ul>
 </div>
 
-<!-- Main Content -->
 <div class="main-content">
 	<!-- Title page -->
 	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('${pageContext.request.contextPath}/images/bg-01.jpg');">
 		<h2 class="ltext-105 cl0 txt-center">
-			Product Management
+			User Management
 		</h2>
 	</section>
 
 	<!-- Content page -->
 	<section class="bg0 p-t-75 p-b-120">
-		<div class="container-fluid">
+		<div class="container">
 			<div class="row">
 				<div class="col-12 p-b-30">
 					<!-- Admin actions -->
 					<div class="d-flex justify-content-between align-items-center mb-4">
-						<h4 class="mtext-109 cl2">Products List</h4>
-						<button type="button" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04" data-toggle="modal" data-target="#addProductModal">
-							<i class="zmdi zmdi-plus mr-2"></i> Add New Product
+						<h4 class="mtext-109 cl2">Users List</h4>
+						<button type="button" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04" data-toggle="modal" data-target="#addUserModal">
+							<i class="zmdi zmdi-plus mr-2"></i> Add New User
 						</button>
 					</div>
-					
-					<!-- Product table -->
+
+					<!-- User table -->
 					<div class="table-responsive">
 						<table class="table table-striped table-hover">
 							<thead class="bg3 text-white">
-								<tr>
-									<th>ID</th>
-									<th>Image</th>
-									<th>Name</th>
-									<th>Price</th>
-									<th>Category</th>
-									<th>Stock</th>
-									<th>Status</th>
-									<th>Actions</th>
-								</tr>
+							<tr>
+								<th>ID</th>
+								<th>Full Name</th>
+								<th>Email</th>
+								<th>Phone</th>
+								<th>Role</th>
+								<th>Status</th>
+								<th>Actions</th>
+							</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${products}" var="product">
-									<tr>
-										<td>${product.id}</td>
-										<td>
-											<img src="${pageContext.request.contextPath}/${product.imageUrl}" alt="Product" style="width: 50px; height: 50px; object-fit: cover;">
-										</td>
-										<td>${product.name}</td>
-										<td>$${product.price}</td>
-										<td>${product.category}</td>
-										<td>${product.stock}</td>
-										<td>
-											<span class="badge ${product.active ? 'badge-success' : 'badge-danger'}">
-												${product.active ? 'Active' : 'Inactive'}
-											</span>
-										</td>
-										<td>
-											<div class="d-flex">
-												<button type="button" class="btn btn-sm btn-info mr-2" data-toggle="modal" data-target="#editProductModal_${product.id}">
-													<i class="zmdi zmdi-edit"></i>
-												</button>
-												<button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteProductModal_${product.id}">
-													<i class="zmdi zmdi-delete"></i>
-												</button>
-											</div>
-										</td>
-									</tr>
-								</c:forEach>
-								
-								<!-- Example data (remove in production) -->
+							<c:forEach items="${users}" var="user">
 								<tr>
-									<td>1</td>
+									<td>${user.id}</td>
+									<td>${user.fullName}</td>
+									<td>${user.email}</td>
+									<td>${user.phone}</td>
+									<td>${user.role.role}</td>
 									<td>
-										<img src="${pageContext.request.contextPath}/images/product-01.jpg" alt="Product" style="width: 50px; height: 50px; object-fit: cover;">
-									</td>
-									<td>Esprit Ruffle Shirt</td>
-									<td>$16.64</td>
-									<td>Women</td>
-									<td>45</td>
-									<td>
-										<span class="badge badge-success">Active</span>
+										<span class="badge ${user.active ? 'badge-success' : 'badge-danger'}">
+												${user.active ? 'Active' : 'Inactive'}
+										</span>
 									</td>
 									<td>
 										<div class="d-flex">
-											<button type="button" class="btn btn-sm btn-info mr-2" data-toggle="modal" data-target="#editProductModal1">
+											<button type="button" class="btn btn-sm btn-info mr-2" data-toggle="modal" data-target="#editUserModal_${user.id}">
 												<i class="zmdi zmdi-edit"></i>
 											</button>
-											<button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteProductModal1">
+											<button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteUserModal_${user.id}">
 												<i class="zmdi zmdi-delete"></i>
 											</button>
 										</div>
 									</td>
 								</tr>
-								<tr>
-									<td>2</td>
-									<td>
-										<img src="${pageContext.request.contextPath}/images/product-02.jpg" alt="Product" style="width: 50px; height: 50px; object-fit: cover;">
-									</td>
-									<td>Herschel supply</td>
-									<td>$35.31</td>
-									<td>Men</td>
-									<td>20</td>
-									<td>
-										<span class="badge badge-success">Active</span>
-									</td>
-									<td>
-										<div class="d-flex">
-											<button type="button" class="btn btn-sm btn-info mr-2">
-												<i class="zmdi zmdi-edit"></i>
-											</button>
-											<button type="button" class="btn btn-sm btn-danger">
-												<i class="zmdi zmdi-delete"></i>
-											</button>
-										</div>
-									</td>
-								</tr>
+							</c:forEach>
 							</tbody>
 						</table>
 					</div>
-					
+
 					<!-- Pagination -->
 					<div class="d-flex justify-content-center mt-4">
 						<div class="flex-c-m flex-w w-full p-t-45">
 							<c:if test="${currentPage > 1}">
-								<a href="${pageContext.request.contextPath}/admin/management?page=${currentPage - 1}" class="flex-c-m how-pagination1 trans-04 m-all-7">
+								<a href="${pageContext.request.contextPath}/admin/users?page=${currentPage - 1}" class="flex-c-m how-pagination1 trans-04 m-all-7">
 									<i class="zmdi zmdi-chevron-left"></i>
 								</a>
 							</c:if>
-							
+
 							<c:forEach begin="1" end="${totalPages}" var="i">
-								<a href="${pageContext.request.contextPath}/admin/management?page=${i}" class="flex-c-m how-pagination1 trans-04 m-all-7 ${currentPage == i ? 'active-pagination1' : ''}">
-									${i}
+								<a href="${pageContext.request.contextPath}/admin/users?page=${i}" class="flex-c-m how-pagination1 trans-04 m-all-7 ${currentPage == i ? 'active-pagination1' : ''}">
+										${i}
 								</a>
 							</c:forEach>
-							
+
 							<c:if test="${currentPage < totalPages}">
-								<a href="${pageContext.request.contextPath}/admin/management?page=${currentPage + 1}" class="flex-c-m how-pagination1 trans-04 m-all-7">
+								<a href="${pageContext.request.contextPath}/admin/users?page=${currentPage + 1}" class="flex-c-m how-pagination1 trans-04 m-all-7">
 									<i class="zmdi zmdi-chevron-right"></i>
 								</a>
 							</c:if>
@@ -346,161 +293,147 @@
 		</div>
 	</section>
 
-<!-- Add Product Modal -->
-<div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header bg3">
-				<h5 class="modal-title text-white">Add New Product</h5>
-				<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<form action="${pageContext.request.contextPath}/admin/product/add" method="post" enctype="multipart/form-data">
-				<div class="modal-body">
-					<div class="row">
-						<div class="col-md-6 form-group">
-							<label>Product Name</label>
-							<input type="text" name="name" class="form-control" required>
-						</div>
-						<div class="col-md-6 form-group">
-							<label>Price</label>
-							<input type="number" name="price" class="form-control" step="0.01" required>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6 form-group">
-							<label>Category</label>
-							<select name="categoryId" class="form-control" required>
-								<option value="">Select Category</option>
-								<c:forEach items="${categories}" var="category">
-									<option value="${category.id}">${category.name}</option>
-								</c:forEach>
-								
-								<!-- Example options (remove in production) -->
-								<option value="1">Women</option>
-								<option value="2">Men</option>
-								<option value="3">Accessories</option>
-							</select>
-						</div>
-						<div class="col-md-6 form-group">
-							<label>Stock</label>
-							<input type="number" name="stock" class="form-control" required>
-						</div>
-					</div>
-					<div class="form-group">
-						<label>Description</label>
-						<textarea name="description" class="form-control" rows="3" required></textarea>
-					</div>
-					<div class="form-group">
-						<label>Product Image</label>
-						<input type="file" name="image" class="form-control-file" required>
-					</div>
+	<!-- Add User Modal -->
+	<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header bg3">
+					<h5 class="modal-title text-white">Add New User</h5>
+					<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-					<button type="submit" class="btn btn-primary bg3">Add Product</button>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-
-<!-- Edit Product Modal -->
-<div class="modal fade" id="editProductModal1" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header bg3">
-				<h5 class="modal-title text-white">Edit Product</h5>
-				<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<form action="${pageContext.request.contextPath}/admin/product/edit" method="post" enctype="multipart/form-data">
-				<div class="modal-body">
-					<input type="hidden" name="id" value="1">
-					<div class="row">
-						<div class="col-md-6 form-group">
-							<label>Product Name</label>
-							<input type="text" name="name" class="form-control" value="Esprit Ruffle Shirt" required>
+				<form action="/hsf/management/user/create" method="post">
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-6 form-group">
+								<label>Full Name</label>
+								<input type="text" name="fullName" class="form-control" required>
+							</div>
+							<div class="col-md-6 form-group">
+								<label>Email</label>
+								<input type="email" name="email" class="form-control" required>
+							</div>
 						</div>
-						<div class="col-md-6 form-group">
-							<label>Price</label>
-							<input type="number" name="price" class="form-control" step="0.01" value="16.64" required>
+						<div class="row">
+							<div class="col-md-6 form-group">
+								<label>Phone</label>
+								<input type="tel" name="phone" class="form-control" required>
+							</div>
+							<div class="col-md-6 form-group">
+								<label>Password</label>
+								<input type="password" name="password" class="form-control" required>
+							</div>
 						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6 form-group">
-							<label>Category</label>
-							<select name="categoryId" class="form-control" required>
-								<option value="">Select Category</option>
-								<option value="1" selected>Women</option>
-								<option value="2">Men</option>
-								<option value="3">Accessories</option>
-							</select>
-						</div>
-						<div class="col-md-6 form-group">
-							<label>Stock</label>
-							<input type="number" name="stock" class="form-control" value="45" required>
+						<div class="row">
+							<div class="col-md-6 form-group">
+								<label>Role</label>
+								<select name="roleId" class="form-control" required>
+									<option value="">Select Role</option>
+									<c:forEach items="${roles}" var="role">
+										<option value="${role.id}">${role.role}</option>
+									</c:forEach>
+								</select>
+							</div>
 						</div>
 					</div>
-					<div class="form-group">
-						<label>Description</label>
-						<textarea name="description" class="form-control" rows="3" required>Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat ornare feugiat.</textarea>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+						<button type="submit" class="btn btn-primary bg3">Add User</button>
 					</div>
-					<div class="form-group">
-						<label>Current Image</label>
-						<div>
-							<img src="${pageContext.request.contextPath}/images/product-01.jpg" alt="Current" style="width: 100px; height: 100px; object-fit: cover;">
-						</div>
-					</div>
-					<div class="form-group">
-						<label>Change Image (optional)</label>
-						<input type="file" name="image" class="form-control-file">
-					</div>
-					<div class="form-group">
-						<div class="custom-control custom-switch">
-							<input type="checkbox" class="custom-control-input" id="activeStatus" name="active" checked>
-							<label class="custom-control-label" for="activeStatus">Active Status</label>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-					<button type="submit" class="btn btn-primary bg3">Save Changes</button>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-
-<!-- Delete Product Modal -->
-<div class="modal fade" id="deleteProductModal1" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header bg-danger text-white">
-				<h5 class="modal-title">Confirm Delete</h5>
-				<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<p>Are you sure you want to delete this product?</p>
-				<p><strong>Esprit Ruffle Shirt</strong></p>
-				<p>This action cannot be undone.</p>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-				<form action="${pageContext.request.contextPath}/admin/product/delete" method="post">
-					<input type="hidden" name="id" value="1">
-					<button type="submit" class="btn btn-danger">Delete</button>
 				</form>
 			</div>
 		</div>
 	</div>
+
+	<!-- Edit User Modal -->
+	<c:forEach items="${users}" var="user">
+		<div class="modal fade" id="editUserModal_${user.id}" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header bg3">
+						<h5 class="modal-title text-white">Edit User</h5>
+						<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<form action="/hsf/management/user/update" method="post">
+						<div class="modal-body">
+							<input type="hidden" name="id" value="${user.id}">
+							<div class="row">
+								<div class="col-md-6 form-group">
+									<label>Full Name</label>
+									<input type="text" name="fullName" class="form-control" value="${user.fullName}" required>
+								</div>
+								<div class="col-md-6 form-group">
+									<label>Email</label>
+									<input type="email" name="email" class="form-control" value="${user.email}" required readonly>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6 form-group">
+									<label>Phone</label>
+									<input type="tel" name="phone" class="form-control" value="${user.phone}" required>
+								</div>
+								<div class="col-md-6 form-group">
+									<label>Role</label>
+									<select name="roleId" class="form-control" required>
+										<c:forEach items="${roles}" var="role">
+											<option value="${role.id}" ${user.role.id == role.id ? 'selected' : ''}>${role.role}</option>
+										</c:forEach>
+									</select>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6 form-group">
+									<label>Status</label>
+									<select name="status" class="form-control">
+										<option value="True">Active</option>
+										<option value="False">Disable</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+							<button type="submit" class="btn btn-primary bg3">Save Changes</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</c:forEach>
+
+	<!-- Delete User Modal -->
+	<c:forEach items="${users}" var="user">
+		<div class="modal fade" id="deleteUserModal_${user.id}" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header bg-danger text-white">
+						<h5 class="modal-title">Confirm Delete</h5>
+						<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>Are you sure you want to delete this user?</p>
+						<p><strong>${user.fullName}</strong> (${user.email})</p>
+						<p>This action cannot be undone.</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+						<form action="/hsf/management/user/delete" method="post">
+							<input type="hidden" name="id" value="${user.id}">
+							<button type="submit" class="btn btn-danger">Delete</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</c:forEach>
 </div>
 
-</div><!-- End of main-content -->
+
 
 <!-- Footer -->
 <footer class="bg3 p-t-75 p-b-32">
@@ -532,10 +465,7 @@
 			</div>
 
 			<p class="stext-107 cl6 txt-center">
-				<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-				Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> &amp; distributed by <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
-				<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-
+				Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved
 			</p>
 		</div>
 	</div>
@@ -554,7 +484,6 @@
 <script src="${pageContext.request.contextPath}/vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
 <script src="${pageContext.request.contextPath}/vendor/bootstrap/js/popper.js"></script>
-<!--===============================================================================================-->
 <script src="${pageContext.request.contextPath}/vendor/bootstrap/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->
 <script src="${pageContext.request.contextPath}/vendor/select2/select2.min.js"></script>
@@ -598,15 +527,6 @@
 </script>
 <!--===============================================================================================-->
 <script src="${pageContext.request.contextPath}/js/main.js"></script>
-<script>
-	// Add this to your existing scripts
-	$(document).ready(function() {
-		// Toggle sidebar on mobile
-		$('.toggle-sidebar').click(function() {
-			$('.sidebar').toggleClass('active');
-		});
-	});
-</script>
 
 </body>
 </html> 

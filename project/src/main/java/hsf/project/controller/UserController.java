@@ -27,12 +27,17 @@ public class UserController {
 
     @GetMapping()
     public String userProfile(HttpSession session) {
-        if (session.getAttribute("user") == null) {
+        Users user = (Users)session.getAttribute("user");
+        String email = user.getEmail();
+        Users newUser = userService.getUserByEmail(email);
+        if (user == null) {
             return "redirect:/login";
-        } else {
-            return "user";
         }
+        session.setAttribute("user", newUser);
+        return "user";
+
     }
+
 
     @GetMapping("/register")
     public String registerRequest(HttpSession session) {
@@ -78,7 +83,7 @@ public class UserController {
         } else {
             model.addAttribute("status", "Can't update user information");
         }
-        return "user";
+        return "redirect:/user";
     }
 
     @PostMapping("/delete")

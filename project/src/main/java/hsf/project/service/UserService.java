@@ -44,14 +44,22 @@ public class UserService implements IUserService {
     @Override
     public boolean updateUser(String email, String fullName, String currentPassword, String newPassword, String phone) {
         Users user = userRepository.findByEmail(email);
-        if (user != null && user.getPassword().equals(currentPassword)) {
+
+        if (fullName != null) {
             user.setFullName(fullName);
-            user.setPassword(newPassword);
-            user.setPhone(phone);
-            userRepository.save(user);
-            return true;
         }
-        return false;
+        if (phone != null) {
+            user.setPhone(phone);
+        }
+        if (!currentPassword.isEmpty() && !newPassword.isEmpty()) {
+            if (user != null && user.getPassword().equals(currentPassword)) {
+                user.setPassword(newPassword);
+            } else {
+                return false;
+            }
+        }
+        userRepository.save(user);
+        return true;
     }
 
     @Transactional
@@ -63,5 +71,22 @@ public class UserService implements IUserService {
             return true;
         }
         return false;
+    }
+
+    @Transactional
+    public void deleteById(int id) {
+        userRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void adminUpdate(String email, String fullName, String phone, int roleId, boolean status) {
+        Users user = userRepository.findByEmail(email);
+        if (user != null) {
+            user.setFullName(fullName);
+            user.setPhone(phone);
+            user.setRole(roleRepository.findById(roleId));
+            user.setActive(status);
+            userRepository.save(user);
+        }
     }
 }

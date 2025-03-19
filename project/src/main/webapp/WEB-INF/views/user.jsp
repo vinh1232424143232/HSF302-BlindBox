@@ -48,38 +48,40 @@
 
 				<!-- Logo desktop -->
 				<a href="/hsf/home" class="logo">
-					<img src="${pageContext.request.contextPath}/images/icons/logo-01.png" alt="IMG-LOGO">
+					<img src="images/icons/logo-01.png" alt="IMG-LOGO">
 				</a>
 
 				<!-- Menu desktop -->
 				<div class="menu-desktop">
 					<ul class="main-menu">
-						<li>
+						<li >
 							<a href="/hsf/home">Home</a>
 						</li>
+
 						<li>
 							<a href="/hsf/product">Shop</a>
 						</li>
-						<li>
-							<a href="/hsf/cart">Cart</a>
-						</li>
+
 						<li class="active-menu">
 							<a href="/hsf/user">Profile</a>
 						</li>
+
 					</ul>
 				</div>
 
 				<!-- Icon header -->
 				<div class="wrap-icon-header flex-w flex-r-m h-full">
 					<div class="flex-c-m h-full p-r-24">
-						<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-modal-search">
-							<i class="zmdi zmdi-search"></i>
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 ">
+							<a href="/hsf/cart" style="color: inherit;">
+								<i class="zmdi zmdi-shopping-cart"></i>
+							</a>
 						</div>
 					</div>
-					
+
 					<div class="flex-c-m h-full p-lr-19">
 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11">
-							<a href="/hsf/logout" style="color: inherit;">
+							<a href="${pageContext.request.contextPath}/logout" style="color: inherit;">
 								<i class="zmdi zmdi-power"></i>
 							</a>
 						</div>
@@ -93,7 +95,7 @@
 	<div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
 		<div class="container-search-header">
 			<button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-				<img src="${pageContext.request.contextPath}/images/icons/icon-close2.png" alt="CLOSE">
+				<img src="images/icons/icon-close2.png" alt="CLOSE">
 			</button>
 
 			<form class="wrap-search-header flex-w p-l-15">
