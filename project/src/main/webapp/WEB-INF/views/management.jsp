@@ -122,6 +122,46 @@
 			padding: 20px;
 		}
 
+		/* Enhanced file input styling */
+		.custom-file-label {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+		
+		.custom-file-label::after {
+			content: "Browse";
+			background-color: #717fe0;
+			color: white;
+			font-weight: bold;
+			border-color: #717fe0;
+			transition: all 0.3s ease;
+		}
+		
+		.custom-file-input:hover ~ .custom-file-label::after {
+			background-color: #5a64c5;
+			box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+		}
+		
+		.file-upload-section {
+			border: 2px dashed #dee2e6;
+			padding: 20px;
+			border-radius: 5px;
+			background-color: #f8f9fa;
+			transition: all 0.3s ease;
+		}
+		
+		.file-upload-section:hover {
+			border-color: #717fe0;
+			background-color: #f0f2ff;
+		}
+		
+		.file-upload-icon {
+			color: #717fe0;
+			font-size: 1.5rem;
+			margin-right: 8px;
+		}
+
 		/* Responsive */
 		@media (max-width: 468px) {
 			.sidebar {
@@ -394,7 +434,17 @@
 					</div>
 					<div class="form-group">
 						<label>Product Image</label>
-						<input type="file" name="image" class="form-control-file" required>
+						<div class="file-upload-section">
+							<div class="custom-file mb-3">
+								<input type="file" class="custom-file-input" id="addProductImage" name="image" accept="image/*" onchange="previewImage(this, 'addImagePreview')" required>
+								<label class="custom-file-label" for="addProductImage">
+									<i class="zmdi zmdi-collection-image file-upload-icon"></i>Choose file...
+								</label>
+							</div>
+							<div class="mt-3 text-center">
+								<img id="addImagePreview" src="#" alt="Image Preview" style="max-width: 200px; max-height: 200px; display: none;" class="img-thumbnail">
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -450,13 +500,23 @@
 					</div>
 					<div class="form-group">
 						<label>Current Image</label>
-						<div>
-							<img src="${pageContext.request.contextPath}/images/product-01.jpg" alt="Current" style="width: 100px; height: 100px; object-fit: cover;">
+						<div class="text-center mb-3">
+							<img id="currentImage1" src="${pageContext.request.contextPath}/images/product-01.jpg" alt="Current" style="max-width: 200px; max-height: 200px; object-fit: cover;" class="img-thumbnail">
 						</div>
 					</div>
 					<div class="form-group">
 						<label>Change Image (optional)</label>
-						<input type="file" name="image" class="form-control-file">
+						<div class="file-upload-section">
+							<div class="custom-file">
+								<input type="file" class="custom-file-input" id="editProductImage1" name="image" accept="image/*" onchange="previewImage(this, 'editImagePreview1')">
+								<label class="custom-file-label" for="editProductImage1">
+									<i class="zmdi zmdi-collection-image file-upload-icon"></i>Choose file...
+								</label>
+							</div>
+							<div class="mt-3 text-center">
+								<img id="editImagePreview1" src="#" alt="New Image Preview" style="max-width: 200px; max-height: 200px; display: none;" class="img-thumbnail">
+							</div>
+						</div>
 					</div>
 					<div class="form-group">
 						<div class="custom-control custom-switch">
@@ -499,6 +559,112 @@
 		</div>
 	</div>
 </div>
+
+<!-- Dynamic Edit Product Modals -->
+<c:forEach items="${products}" var="product">
+    <div class="modal fade" id="editProductModal_${product.id}" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg3">
+                    <h5 class="modal-title text-white">Edit Product</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="${pageContext.request.contextPath}/admin/product/edit" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <input type="hidden" name="id" value="${product.id}">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label>Product Name</label>
+                                <input type="text" name="name" class="form-control" value="${product.name}" required>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Price</label>
+                                <input type="number" name="price" class="form-control" step="0.01" value="${product.price}" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label>Category</label>
+                                <select name="categoryId" class="form-control" required>
+                                    <option value="">Select Category</option>
+                                    <c:forEach items="${categories}" var="category">
+                                        <option value="${category.id}" ${product.categoryId == category.id ? 'selected' : ''}>${category.name}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Stock</label>
+                                <input type="number" name="stock" class="form-control" value="${product.stock}" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea name="description" class="form-control" rows="3" required>${product.description}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Current Image</label>
+                            <div class="text-center mb-3">
+                                <img id="currentImage_${product.id}" src="${pageContext.request.contextPath}/${product.imageUrl}" alt="Current" style="max-width: 200px; max-height: 200px; object-fit: cover;" class="img-thumbnail">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Change Image (optional)</label>
+                            <div class="file-upload-section">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="editProductImage_${product.id}" name="image" accept="image/*" onchange="previewImage(this, 'editImagePreview_${product.id}')">
+                                    <label class="custom-file-label" for="editProductImage_${product.id}">
+                                        <i class="zmdi zmdi-collection-image file-upload-icon"></i>Choose file...
+                                    </label>
+                                </div>
+                                <div class="mt-3 text-center">
+                                    <img id="editImagePreview_${product.id}" src="#" alt="New Image Preview" style="max-width: 200px; max-height: 200px; display: none;" class="img-thumbnail">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="activeStatus_${product.id}" name="active" ${product.active ? 'checked' : ''}>
+                                <label class="custom-control-label" for="activeStatus_${product.id}">Active Status</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary bg3">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Dynamic Delete Modal -->
+    <div class="modal fade" id="deleteProductModal_${product.id}" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title">Confirm Delete</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this product?</p>
+                    <p><strong>${product.name}</strong></p>
+                    <p>This action cannot be undone.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <form action="${pageContext.request.contextPath}/admin/product/delete" method="post">
+                        <input type="hidden" name="id" value="${product.id}">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</c:forEach>
 
 </div><!-- End of main-content -->
 
@@ -605,7 +771,27 @@
 		$('.toggle-sidebar').click(function() {
 			$('.sidebar').toggleClass('active');
 		});
+		
+		// Initialize file input display
+		$('.custom-file-input').on('change', function() {
+			var fileName = $(this).val().split('\\').pop();
+			$(this).next('.custom-file-label').html(fileName);
+		});
 	});
+	
+	// Function to preview images before upload
+	function previewImage(input, previewId) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			
+			reader.onload = function(e) {
+				$('#' + previewId).attr('src', e.target.result);
+				$('#' + previewId).css('display', 'block');
+			}
+			
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
 </script>
 
 </body>
