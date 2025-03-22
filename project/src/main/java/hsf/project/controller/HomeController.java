@@ -14,4 +14,9 @@ public class HomeController {
     public String homePage(Model model, HttpSession session) {
         return "home";
     }
+
+    @GetMapping("/error")
+    public String errorPage(Model model, HttpSession session) {
+        return "error";
+    }
 }

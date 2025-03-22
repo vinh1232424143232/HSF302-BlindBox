@@ -3,7 +3,6 @@ package hsf.project.controller;
 import hsf.project.service.SupabaseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,8 +18,7 @@ public class SupabaseController {
     public String upload(@RequestParam("file") MultipartFile file) {
         try {
             String fileName = file.getOriginalFilename();
-            String url = supabaseService.upload(file, fileName);
-            return "redirect:/";
+            return supabaseService.upload(file, fileName);
         } catch (IOException e) {
             return "redirect:/error";
         }
@@ -38,5 +36,10 @@ public class SupabaseController {
         } catch (IOException e) {
             return "redirect:/error";
         }
+    }
+
+    @PostMapping("/get")
+    public String get(@RequestParam("filename") String filename) {
+        return supabaseService.getImage(filename);
     }
 }
