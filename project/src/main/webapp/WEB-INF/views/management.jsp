@@ -209,12 +209,6 @@
 				Home
 			</a>
 		</li>
-		<li>
-			<a href="/hsf/product">
-				<i class="zmdi zmdi-shopping-cart"></i>
-				Products
-			</a>
-		</li>
 		<li class="active-menu">
 			<a href="/hsf/management">
 				<i class="zmdi zmdi-settings"></i>
