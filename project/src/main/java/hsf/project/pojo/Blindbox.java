@@ -35,6 +35,8 @@ public class Blindbox {
     @JsonManagedReference
     List<CartDetails> cartDetailsList;
 
+    String url;
+
     //Relationship with Order details
 
 }
