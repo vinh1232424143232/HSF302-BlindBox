@@ -21,6 +21,7 @@ public class Brand {
     int id;
     String name;
     String description;
+    String logoPath;
     boolean active;
 
     //Relationship with blind box

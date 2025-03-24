@@ -1,7 +1,16 @@
 package hsf.project.service;
 
-import org.springframework.stereotype.Service;
+import hsf.project.pojo.Brand;
+import org.springframework.web.multipart.MultipartFile;
 
-@Service
-public class BrandService {
+import java.util.List;
+
+public interface BrandService {
+    List<Brand> getAllBrands();
+    Brand getBrandById(int id);
+    Brand createBrand(Brand brand, MultipartFile logo);
+    Brand updateBrand(int id, Brand brand, MultipartFile logo);
+    boolean deleteBrand(int id);
+    boolean toggleBrandStatus(int id);
+    String getLogoUrl(String logoPath);
 }

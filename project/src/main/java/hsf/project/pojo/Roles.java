@@ -25,5 +25,9 @@ public class Roles {
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     List<Users> users;
-
+    
+    // Helper method to use role as name
+    public String getName() {
+        return this.role;
+    }
 }

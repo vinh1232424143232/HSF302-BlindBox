@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,20 +22,51 @@ public class Blindbox {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     String name;
-    int price;
-    int stock;
+    String description;
+    String size;
+    String material;
+    int quantity;
+    double price;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    BlindboxStatus status;
+    
     boolean active;
 
-    //Relationship with brand
+    // Transient field for primary image path (not stored in database)
+    @Transient
+    String primaryImagePath;
+    
+    // Relationship with brand
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "brand_id")
     @JsonBackReference
     Brand brand;
 
-    //Many to many with cart by Cart detail
+    // Relationship with images
+    @OneToMany(mappedBy = "blindbox", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    List<BlindBoxImage> images = new ArrayList<>();
+
+    // Many to many with cart by Cart detail
     @OneToMany(mappedBy = "blindbox")
     @JsonManagedReference
     List<CartDetails> cartDetailsList;
 
-    //Relationship with Order details
+    // Helper method to add image
+    public void addImage(BlindBoxImage image) {
+        images.add(image);
+        image.setBlindbox(this);
+    }
+    
+    // Helper method to remove image
+    public void removeImage(BlindBoxImage image) {
+        images.remove(image);
+        image.setBlindbox(null);
+    }
+}
 
+enum BlindboxStatus {
+    AVAILABLE, OUT_OF_STOCK, COMING_SOON
 }

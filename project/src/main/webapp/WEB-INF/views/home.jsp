@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,79 +35,15 @@
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/util.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css">
+	<!-- Add Font Awesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 	<!--===============================================================================================-->
 </head>
 <body class="animsition">
 
-<!-- Header -->
-<header class="header-v2">
-	<!-- Header desktop -->
-	<div class="container-menu-desktop trans-03">
-		<div class="wrap-menu-desktop">
-			<nav class="limiter-menu-desktop p-l-45">
-
-				<!-- Logo desktop -->
-				<a href="/hsf/home" class="logo">
-					<img src="images/icons/logo-01.png" alt="IMG-LOGO">
-				</a>
-
-				<!-- Menu desktop -->
-				<div class="menu-desktop">
-					<ul class="main-menu">
-						<li class="active-menu">
-							<a href="/hsf/home">Home</a>
-						</li>
-
-						<li>
-							<a href="/hsf/product">Shop</a>
-						</li>
-
-						<li>
-							<a href="/hsf/user">Profile</a>
-						</li>
-
-					</ul>
-				</div>
-
-				<!-- Icon header -->
-				<div class="wrap-icon-header flex-w flex-r-m h-full">
-					<div class="flex-c-m h-full p-r-24">
-						<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 ">
-							<a href="/hsf/cart" style="color: inherit;">
-								<i class="zmdi zmdi-shopping-cart"></i>
-							</a>
-						</div>
-					</div>
-
-					<div class="flex-c-m h-full p-lr-19">
-						<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11">
-							<a href="${pageContext.request.contextPath}/logout" style="color: inherit;">
-								<i class="zmdi zmdi-power"></i>
-							</a>
-						</div>
-					</div>
-				</div>
-			</nav>
-		</div>
-	</div>
-
-	<!-- Modal Search -->
-	<div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
-		<div class="container-search-header">
-			<button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-				<img src="images/icons/icon-close2.png" alt="CLOSE">
-			</button>
-
-			<form class="wrap-search-header flex-w p-l-15">
-				<button class="flex-c-m trans-04">
-					<i class="zmdi zmdi-search"></i>
-				</button>
-				<input class="plh3" type="text" name="search" placeholder="Search...">
-			</form>
-		</div>
-	</div>
-</header>
-
+<!-- Include the navbar -->
+<c:set var="activePage" value="home" scope="request"/>
+<jsp:include page="/WEB-INF/views/common/navbar.jsp" />
 
 <!-- Slider -->
 <section class="section-slide">

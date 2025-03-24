@@ -34,7 +34,7 @@ public class LoginController {
                 switch (user.getRole().getRole()) {
                     case "ADMIN":
                         session.setAttribute("user", user);
-                        return "redirect:/management";
+                        return "redirect:/admin/dashboard";
                     case "USER":
                         session.setAttribute("user", user);
                         return "redirect:/home";
