@@ -1,7 +1,28 @@
 package hsf.project.service;
 
-import org.springframework.stereotype.Service;
+import hsf.project.pojo.Blindbox;
+import org.springframework.web.multipart.MultipartFile;
 
-@Service
-public class BlindboxService {
+import java.util.List;
+
+public interface BlindboxService {
+    // BlindBox operations
+    List<Blindbox> getAllBlindBoxes();
+
+    List<Blindbox> getBlindBoxesByBrand(int brandId);
+
+    List<Blindbox> getActiveBlindBoxes();
+
+    Blindbox getBlindBoxById(int id);
+
+    Blindbox createBlindBox(String name, int price, int stock, int brandId, MultipartFile image);
+
+    Blindbox updateBlindBox(int id, String name, int price, int stock, boolean active, int brandId, MultipartFile image);
+
+    boolean deleteBlindBox(int id);
+
+    int countTotalBlindBoxes();
+
+    int countActiveBlindBoxes();
+
 }

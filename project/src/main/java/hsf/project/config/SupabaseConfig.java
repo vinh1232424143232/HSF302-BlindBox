@@ -12,7 +12,7 @@ public class SupabaseConfig {
     private String supabaseKey;
 
     @Value("${supabase.bucket}")
-    private String bucketName;
+    private String bucketName = "image";
 
     public String getUrl() {
         return supabaseUrl;

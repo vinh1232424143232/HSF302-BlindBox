@@ -3,8 +3,8 @@ package hsf.project.controller;
 
 import hsf.project.pojo.Address;
 import hsf.project.pojo.Users;
-import hsf.project.service.AddressService;
-import hsf.project.service.UserService;
+import hsf.project.service.impl.AddressServiceImpl;
+import hsf.project.service.impl.UserServiceImpl;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,9 +21,9 @@ import java.util.List;
 @RequestMapping("/address")
 public class AddressController {
     @Autowired
-    private AddressService addressService;
+    private AddressServiceImpl addressServiceImpl;
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userServiceImpl;
 
     @GetMapping()
     public String address(HttpSession session, Model model) {
@@ -31,7 +31,7 @@ public class AddressController {
             return "redirect:/login";
         }
         Users user = (Users) session.getAttribute("user");
-        List<Address> list = addressService.getAll(user);
+        List<Address> list = addressServiceImpl.getAll(user);
         model.addAttribute("addresses", list);
         return "address";
     }
@@ -42,7 +42,7 @@ public class AddressController {
             return "redirect:/login";
         } else {
             Users user = (Users) session.getAttribute("user");
-            List<Address> list = addressService.getAll(user);
+            List<Address> list = addressServiceImpl.getAll(user);
             model.addAttribute("addresses", list);
         }
         return "address";
@@ -56,7 +56,7 @@ public class AddressController {
         } else {
             Users user = (Users) session.getAttribute("user");
             String email = user.getEmail();
-            addressService.create(number, street, city, email);
+            addressServiceImpl.create(number, street, city, email);
         }
         return "redirect:/address";
     }
@@ -66,7 +66,7 @@ public class AddressController {
         if (session.getAttribute("user") == null) {
             return "redirect:/login";
         } else {
-            boolean status = addressService.update(id ,street, city, number);
+            boolean status = addressServiceImpl.update(id ,street, city, number);
             if (status) {
                 model.addAttribute("status", "Update successful");
             } else {
@@ -81,7 +81,7 @@ public class AddressController {
         if (session.getAttribute("user") == null) {
             return "redirect:/login";
         } else {
-            boolean status = addressService.deleteById(id);
+            boolean status = addressServiceImpl.deleteById(id);
             if (status) {
                 model.addAttribute("status", "Delete successful");
                 return "redirect:/address";

@@ -1,9 +1,8 @@
 package hsf.project.controller;
 
 import hsf.project.pojo.Users;
-import hsf.project.service.IUserService;
-import hsf.project.service.RoleService;
 import hsf.project.service.UserService;
+import hsf.project.service.impl.RoleServiceImpl;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,20 +18,20 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
     @Autowired
-    private IUserService userService;
+    private UserService userService;
 
     @Autowired
-    private RoleService roleService;
+    private RoleServiceImpl roleServiceImpl;
 
 
     @GetMapping()
     public String userProfile(HttpSession session) {
         Users user = (Users)session.getAttribute("user");
-        String email = user.getEmail();
-        Users newUser = userService.getUserByEmail(email);
         if (user == null) {
             return "redirect:/login";
         }
+        String email = user.getEmail();
+        Users newUser = userService.getUserByEmail(email);
         session.setAttribute("user", newUser);
         return "user";
 
@@ -69,7 +68,7 @@ public class UserController {
     public String register(@RequestParam String fullName, @RequestParam String email, @RequestParam String password, @RequestParam String confirmPassword, @RequestParam String phone) {
         if (password.equals(confirmPassword)) {
             Users user = new Users(fullName, email, password, phone);
-            user.setRole(roleService.getRolesById(2));
+            user.setRole(roleServiceImpl.getRolesById(2));
             userService.create(user);
         }
         return "login";

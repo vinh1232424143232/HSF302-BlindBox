@@ -1,7 +1,7 @@
 package hsf.project.controller;
 
 import hsf.project.pojo.Users;
-import hsf.project.service.UserService;
+import hsf.project.service.impl.UserServiceImpl;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class LoginController {
     @Autowired
-    UserService userService;
+    UserServiceImpl userServiceImpl;
 
     @GetMapping("/login")
     public String login(HttpSession session) {
@@ -26,7 +26,7 @@ public class LoginController {
 
     @PostMapping("/login")
     public String login(@RequestParam String email, @RequestParam String password, HttpSession session, Model model) {
-        Users user = userService.login(email);
+        Users user = userServiceImpl.login(email);
         if (user != null) {
             if (!user.getPassword().equals(password)) {
                 model.addAttribute("error", "Wrong password");

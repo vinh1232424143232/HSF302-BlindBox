@@ -27,4 +27,6 @@ public class Brand {
     @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     List<Blindbox> blindboxList;
+
+    String url;
 }

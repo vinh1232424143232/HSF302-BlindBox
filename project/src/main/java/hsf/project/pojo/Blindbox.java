@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Blindbox {
+public class  Blindbox {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;

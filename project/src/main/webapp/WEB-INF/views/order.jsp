@@ -61,11 +61,8 @@
 						<li>
 							<a href="/hsf/product">Shop</a>
 						</li>
-						<li>
-							<a href="/hsf/cart">Cart</a>
-						</li>
 						<li class="active-menu">
-							<a href="/hsf/user">My Account</a>
+							<a href="/hsf/user">Profile</a>
 						</li>
 					</ul>
 				</div>
@@ -123,7 +120,7 @@
 					<nav class="navbar">
 						<ul class="navbar-nav">
 							<li class="nav-item mb-2">
-								<a class="nav-link" href="/hsf/user">
+								<a class="nav-link" href="/hsf/user" style="color: #1d1d1d">
 									<i class="zmdi zmdi-account mr-2"></i>My Profile
 								</a>
 							</li>
@@ -133,7 +130,7 @@
 								</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="/hsf/address">
+								<a class="nav-link" href="/hsf/address" style="color: #1d1d1d">
 									<i class="zmdi zmdi-pin mr-2"></i>My Addresses
 								</a>
 							</li>

@@ -198,7 +198,7 @@
 <div class="sidebar">
 	<div class="logo">
 		<a href="/hsf/home">
-			<img src="${pageContext.request.contextPath}/images/icons/logo-01.png" alt="IMG-LOGO">
+			<img src="${pageContext.request.contextPath}/images/icons/logo-02.png" alt="IMG-LOGO">
 		</a>
 	</div>
 	
@@ -248,8 +248,103 @@
 	<!-- Content page -->
 	<section class="bg0 p-t-75 p-b-120">
 		<div class="container-fluid">
+			<!-- Statistics Dashboard -->
+			<div class="row mb-5">
+				<div class="col-md-3 col-sm-6 mb-4">
+					<div class="card h-100 border-0">
+						<div class="card-header bg3 text-white text-center p-3">
+							Total Blind Boxes
+						</div>
+						<div class="card-body text-center">
+							<h1 class="display-4">${totalBlindbox}</h1>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 mb-4">
+					<div class="card h-100 border-0">
+						<div class="card-header bg3 text-white text-center p-3">
+							Total Brands
+						</div>
+						<div class="card-body text-center">
+							<h1 class="display-4">${totalBrand}</h1>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 mb-4">
+					<div class="card h-100 border-0">
+						<div class="card-header bg3 text-white text-center p-3">
+							Active Blind Boxes
+						</div>
+						<div class="card-body text-center">
+							<h1 class="display-4">${totalActiveBlindbox}</h1>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 mb-4">
+					<div class="card h-100 border-0">
+						<div class="card-header bg3 text-white text-center p-3">
+							Active Brands
+						</div>
+						<div class="card-body text-center">
+							<h1 class="display-4">${totalActiveBrand}</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End Statistics Dashboard -->
+			
 			<div class="row">
 				<div class="col-12 p-b-30">
+					<!-- Admin actions -->
+					<div class="d-flex justify-content-between align-items-center mb-4">
+						<h4 class="mtext-109 cl2">Brand List</h4>
+						<button type="button" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04" data-toggle="modal" data-target="#addBrandModal">
+							<i class="zmdi zmdi-plus mr-2"></i> Add New Brand
+						</button>
+					</div>
+					<!-- Brand table -->
+					<div class="table-responsive">
+						<table class="table table-striped table-hover">
+							<thead class="bg3 text-white">
+							<tr>
+								<th>ID</th>
+								<th>Image</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Status</th>
+								<th>Actions</th>
+							</tr>
+							</thead>
+							<tbody>
+							<c:forEach items="${brands}" var="brand">
+								<tr>
+									<td>${brand.id}</td>
+									<td>
+										<img src="${brand.url}?timestamp=${System.currentTimeMillis()}" alt="Brand" style="width: 50px; height: 50px; object-fit: cover;">
+									</td>
+									<td>${brand.name}</td>
+									<td>${brand.description}</td>
+									<td>
+											<span class="badge ${brand.active ? 'badge-success' : 'badge-danger'}">
+													${brand.active ? 'Active' : 'Inactive'}
+											</span>
+									</td>
+									<td>
+										<div class="d-flex">
+											<button type="button" class="btn btn-sm btn-info mr-2" data-toggle="modal" data-target="#editBrandModal_${brand.id}">
+												<i class="zmdi zmdi-edit"></i>
+											</button>
+											<button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteBrandModal_${brand.id}">
+												<i class="zmdi zmdi-delete"></i>
+											</button>
+										</div>
+									</td>
+								</tr>
+							</c:forEach>
+							</tbody>
+						</table>
+					</div>
+
 					<!-- Admin actions -->
 					<div class="d-flex justify-content-between align-items-center mb-4">
 						<h4 class="mtext-109 cl2">Products List</h4>
@@ -257,7 +352,6 @@
 							<i class="zmdi zmdi-plus mr-2"></i> Add New Product
 						</button>
 					</div>
-					
 					<!-- Product table -->
 					<div class="table-responsive">
 						<table class="table table-striped table-hover">
@@ -267,7 +361,7 @@
 									<th>Image</th>
 									<th>Name</th>
 									<th>Price</th>
-									<th>Category</th>
+									<th>Brand</th>
 									<th>Stock</th>
 									<th>Status</th>
 									<th>Actions</th>
@@ -278,11 +372,11 @@
 									<tr>
 										<td>${product.id}</td>
 										<td>
-											<img src="${pageContext.request.contextPath}/${product.imageUrl}" alt="Product" style="width: 50px; height: 50px; object-fit: cover;">
+											<img src="${product.url}?timestamp=${System.currentTimeMillis()}" alt="Product" style="width: 50px; height: 50px; object-fit: cover;">
 										</td>
 										<td>${product.name}</td>
 										<td>$${product.price}</td>
-										<td>${product.category}</td>
+										<td>${product.brand.name}</td>
 										<td>${product.stock}</td>
 										<td>
 											<span class="badge ${product.active ? 'badge-success' : 'badge-danger'}">
@@ -301,54 +395,6 @@
 										</td>
 									</tr>
 								</c:forEach>
-								
-								<!-- Example data (remove in production) -->
-								<tr>
-									<td>1</td>
-									<td>
-										<img src="${pageContext.request.contextPath}/images/product-01.jpg" alt="Product" style="width: 50px; height: 50px; object-fit: cover;">
-									</td>
-									<td>Esprit Ruffle Shirt</td>
-									<td>$16.64</td>
-									<td>Women</td>
-									<td>45</td>
-									<td>
-										<span class="badge badge-success">Active</span>
-									</td>
-									<td>
-										<div class="d-flex">
-											<button type="button" class="btn btn-sm btn-info mr-2" data-toggle="modal" data-target="#editProductModal1">
-												<i class="zmdi zmdi-edit"></i>
-											</button>
-											<button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteProductModal1">
-												<i class="zmdi zmdi-delete"></i>
-											</button>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td>
-										<img src="${pageContext.request.contextPath}/images/product-02.jpg" alt="Product" style="width: 50px; height: 50px; object-fit: cover;">
-									</td>
-									<td>Herschel supply</td>
-									<td>$35.31</td>
-									<td>Men</td>
-									<td>20</td>
-									<td>
-										<span class="badge badge-success">Active</span>
-									</td>
-									<td>
-										<div class="d-flex">
-											<button type="button" class="btn btn-sm btn-info mr-2">
-												<i class="zmdi zmdi-edit"></i>
-											</button>
-											<button type="button" class="btn btn-sm btn-danger">
-												<i class="zmdi zmdi-delete"></i>
-											</button>
-										</div>
-									</td>
-								</tr>
 							</tbody>
 						</table>
 					</div>
@@ -380,8 +426,8 @@
 		</div>
 	</section>
 
-<!-- Add Product Modal -->
-<div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<!-- Add Product Modal -->
+	<div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header bg3">
@@ -390,7 +436,7 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<form action="${pageContext.request.contextPath}/admin/product/add" method="post" enctype="multipart/form-data">
+			<form action="/hsf/management/product/create" method="post" enctype="multipart/form-data">
 				<div class="modal-body">
 					<div class="row">
 						<div class="col-md-6 form-group">
@@ -404,17 +450,13 @@
 					</div>
 					<div class="row">
 						<div class="col-md-6 form-group">
-							<label>Category</label>
-							<select name="categoryId" class="form-control" required>
-								<option value="">Select Category</option>
-								<c:forEach items="${categories}" var="category">
-									<option value="${category.id}">${category.name}</option>
+							<label>Brand</label>
+							<select name="brandId" class="form-control" required>
+								<option value="">Select Brand</option>
+								<c:forEach items="${brands}" var="brand">
+									<option value="${brand.id}">${brand.name}</option>
 								</c:forEach>
-								
-								<!-- Example options (remove in production) -->
-								<option value="1">Women</option>
-								<option value="2">Men</option>
-								<option value="3">Accessories</option>
+
 							</select>
 						</div>
 						<div class="col-md-6 form-group">
@@ -422,10 +464,7 @@
 							<input type="number" name="stock" class="form-control" required>
 						</div>
 					</div>
-					<div class="form-group">
-						<label>Description</label>
-						<textarea name="description" class="form-control" rows="3" required></textarea>
-					</div>
+
 					<div class="form-group">
 						<label>Product Image</label>
 						<div class="file-upload-section">
@@ -448,114 +487,54 @@
 			</form>
 		</div>
 	</div>
-</div>
-
-<!-- Edit Product Modal -->
-<div class="modal fade" id="editProductModal1" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header bg3">
-				<h5 class="modal-title text-white">Edit Product</h5>
-				<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<form action="${pageContext.request.contextPath}/admin/product/edit" method="post" enctype="multipart/form-data">
-				<div class="modal-body">
-					<input type="hidden" name="id" value="1">
-					<div class="row">
-						<div class="col-md-6 form-group">
-							<label>Product Name</label>
-							<input type="text" name="name" class="form-control" value="Esprit Ruffle Shirt" required>
-						</div>
-						<div class="col-md-6 form-group">
-							<label>Price</label>
-							<input type="number" name="price" class="form-control" step="0.01" value="16.64" required>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6 form-group">
-							<label>Category</label>
-							<select name="categoryId" class="form-control" required>
-								<option value="">Select Category</option>
-								<option value="1" selected>Women</option>
-								<option value="2">Men</option>
-								<option value="3">Accessories</option>
-							</select>
-						</div>
-						<div class="col-md-6 form-group">
-							<label>Stock</label>
-							<input type="number" name="stock" class="form-control" value="45" required>
-						</div>
-					</div>
-					<div class="form-group">
-						<label>Description</label>
-						<textarea name="description" class="form-control" rows="3" required>Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat ornare feugiat.</textarea>
-					</div>
-					<div class="form-group">
-						<label>Current Image</label>
-						<div class="text-center mb-3">
-							<img id="currentImage1" src="${pageContext.request.contextPath}/images/product-01.jpg" alt="Current" style="max-width: 200px; max-height: 200px; object-fit: cover;" class="img-thumbnail">
-						</div>
-					</div>
-					<div class="form-group">
-						<label>Change Image (optional)</label>
-						<div class="file-upload-section">
-							<div class="custom-file">
-								<input type="file" class="custom-file-input" id="editProductImage1" name="image" accept="image/*" onchange="previewImage(this, 'editImagePreview1')">
-								<label class="custom-file-label" for="editProductImage1">
-									<i class="zmdi zmdi-collection-image file-upload-icon"></i>Choose file...
-								</label>
-							</div>
-							<div class="mt-3 text-center">
-								<img id="editImagePreview1" src="#" alt="New Image Preview" style="max-width: 200px; max-height: 200px; display: none;" class="img-thumbnail">
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="custom-control custom-switch">
-							<input type="checkbox" class="custom-control-input" id="activeStatus" name="active" checked>
-							<label class="custom-control-label" for="activeStatus">Active Status</label>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-					<button type="submit" class="btn btn-primary bg3">Save Changes</button>
-				</div>
-			</form>
-		</div>
 	</div>
-</div>
 
-<!-- Delete Product Modal -->
-<div class="modal fade" id="deleteProductModal1" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header bg-danger text-white">
-				<h5 class="modal-title">Confirm Delete</h5>
-				<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<p>Are you sure you want to delete this product?</p>
-				<p><strong>Esprit Ruffle Shirt</strong></p>
-				<p>This action cannot be undone.</p>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-				<form action="${pageContext.request.contextPath}/admin/product/delete" method="post">
-					<input type="hidden" name="id" value="1">
-					<button type="submit" class="btn btn-danger">Delete</button>
+	<!-- Add Brand Modal -->
+	<div class="modal fade" id="addBrandModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header bg3">
+					<h5 class="modal-title text-white">Add New Brand</h5>
+					<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form action="/hsf/management/brand/create" method="post" enctype="multipart/form-data">
+					<div class="modal-body">
+						<div class="form-group">
+							<label>Brand Name</label>
+							<input type="text" name="name" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>Description</label>
+							<textarea name="description" class="form-control" rows="3" required></textarea>
+						</div>
+						<div class="form-group">
+							<label>Brand Image</label>
+							<div class="file-upload-section">
+								<div class="custom-file mb-3">
+									<input type="file" class="custom-file-input" id="addBrandImage" name="image" accept="image/*" onchange="previewImage(this, 'addBrandImagePreview')" required>
+									<label class="custom-file-label" for="addBrandImage">
+										<i class="zmdi zmdi-collection-image file-upload-icon"></i>Choose file...
+									</label>
+								</div>
+								<div class="mt-3 text-center">
+									<img id="addBrandImagePreview" src="#" alt="Logo Preview" style="max-width: 200px; max-height: 200px; display: none;" class="img-thumbnail">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+						<button type="submit" class="btn btn-primary bg3">Add Brand</button>
+					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-</div>
 
-<!-- Dynamic Edit Product Modals -->
-<c:forEach items="${products}" var="product">
+	<!-- Dynamic Edit Product Modals -->
+	<c:forEach items="${products}" var="product">
     <div class="modal fade" id="editProductModal_${product.id}" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -565,7 +544,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="${pageContext.request.contextPath}/admin/product/edit" method="post" enctype="multipart/form-data">
+                <form action="/hsf/management/product/update" method="post" enctype="multipart/form-data">
                     <div class="modal-body">
                         <input type="hidden" name="id" value="${product.id}">
                         <div class="row">
@@ -580,11 +559,11 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 form-group">
-                                <label>Category</label>
-                                <select name="categoryId" class="form-control" required>
-                                    <option value="">Select Category</option>
-                                    <c:forEach items="${categories}" var="category">
-                                        <option value="${category.id}" ${product.categoryId == category.id ? 'selected' : ''}>${category.name}</option>
+                                <label>Brand</label>
+                                <select name="brandId" class="form-control" required>
+                                    <option value="">Select Brand</option>
+                                    <c:forEach items="${brands}" var="brand">
+                                        <option value="${brand.id}" ${product.brand.id == brand.id ? 'selected' : ''}>${brand.name}</option>
                                     </c:forEach>
                                 </select>
                             </div>
@@ -594,13 +573,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Description</label>
-                            <textarea name="description" class="form-control" rows="3" required>${product.description}</textarea>
-                        </div>
-                        <div class="form-group">
                             <label>Current Image</label>
                             <div class="text-center mb-3">
-                                <img id="currentImage_${product.id}" src="${pageContext.request.contextPath}/${product.imageUrl}" alt="Current" style="max-width: 200px; max-height: 200px; object-fit: cover;" class="img-thumbnail">
+                                <img id="currentImage_${product.id}" src="${product.url}" alt="Current" style="max-width: 200px; max-height: 200px; object-fit: cover;" class="img-thumbnail">
                             </div>
                         </div>
                         <div class="form-group">
@@ -617,12 +592,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="activeStatus_${product.id}" name="active" ${product.active ? 'checked' : ''}>
-                                <label class="custom-control-label" for="activeStatus_${product.id}">Active Status</label>
-                            </div>
-                        </div>
+						<div class="row">
+							<div class="col-md-6 form-group">
+								<label>Status</label>
+								<select name="status" class="form-control">
+									<option value="True">Active</option>
+									<option value="False">Disable</option>
+								</select>
+							</div>
+						</div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -650,7 +628,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <form action="${pageContext.request.contextPath}/admin/product/delete" method="post">
+                    <form action="/hsf/management/product/delete" method="post">
                         <input type="hidden" name="id" value="${product.id}">
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
@@ -659,6 +637,98 @@
         </div>
     </div>
 </c:forEach>
+
+	<!-- Dynamic Brand Modals -->
+	<c:forEach items="${brands}" var="brand">
+		<!-- Dynamic Edit Brand Modal -->
+		<div class="modal fade" id="editBrandModal_${brand.id}" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header bg3">
+						<h5 class="modal-title text-white">Edit Brand</h5>
+						<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<form action="/hsf/management/brand/update" method="post" enctype="multipart/form-data">
+						<div class="modal-body">
+							<input type="hidden" name="id" value="${brand.id}">
+							<div class="form-group">
+								<label>Brand Name</label>
+								<input type="text" name="name" class="form-control" value="${brand.name}" required>
+							</div>
+							<div class="form-group">
+								<label>Description</label>
+								<textarea name="description" class="form-control" rows="3" required>${brand.description}</textarea>
+							</div>
+							<div class="form-group">
+								<label>Current Image</label>
+								<div class="text-center mb-3">
+									<img id="currentBrandImage_${brand.id}" src="${brand.url}" alt="Current" style="max-width: 200px; max-height: 200px; object-fit: cover;" class="img-thumbnail">
+								</div>
+							</div>
+							<div class="form-group">
+								<label>Change Image (optional)</label>
+								<div class="file-upload-section">
+									<div class="custom-file">
+										<input type="file" class="custom-file-input" id="editBrandImage_${brand.id}" name="image" accept="image/*" onchange="previewImage(this, 'editBrandImagePreview_${brand.id}')">
+										<label class="custom-file-label" for="editBrandImage_${brand.id}">
+											<i class="zmdi zmdi-collection-image file-upload-icon"></i>Choose file...
+										</label>
+									</div>
+									<div class="mt-3 text-center">
+										<img id="editBrandImagePreview_${brand.id}" src="#" alt="New Logo Preview" style="max-width: 200px; max-height: 200px; display: none;" class="img-thumbnail">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6 form-group">
+									<label>Status</label>
+									<select name="status" class="form-control">
+										<option value="True">Active</option>
+										<option value="False">Disable</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+							<button type="submit" class="btn btn-primary bg3">Save Changes</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- Dynamic Delete Brand Modal -->
+		<div class="modal fade" id="deleteBrandModal_${brand.id}" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header bg-danger text-white">
+						<h5 class="modal-title">Confirm Delete</h5>
+						<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>Are you sure you want to delete this brand?</p>
+						<p><strong>${brand.name}</strong></p>
+						<p>This action cannot be undone. All products associated with this brand will also be deleted.</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+						<form action="/hsf/management/brand/delete" method="post">
+							<input type="hidden" name="id" value="${brand.id}">
+							<button type="submit" class="btn btn-danger">Delete</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</c:forEach>
+
+
+
 
 </div><!-- End of main-content -->
 
@@ -787,6 +857,23 @@
 		}
 	}
 </script>
+
+<!-- Thêm đoạn này vào cuối file management.jsp, trước thẻ đóng </body> -->
+<c:if test="${refreshCache}">
+	<script>
+		$(document).ready(function() {
+			// Thêm timestamp vào tất cả các hình ảnh để buộc refresh
+			$('img').each(function() {
+				var src = $(this).attr('src');
+				if (src && !src.includes('?t=')) {
+					$(this).attr('src', src + '?t=' + new Date().getTime());
+				}
+			});
+
+			console.log("Image cache refreshed");
+		});
+	</script>
+</c:if>
 
 </body>
 </html> 

@@ -129,12 +129,12 @@
 								</a>
 							</li>
 							<li class="nav-item mb-2">
-								<a class="nav-link" href="/hsf/order/all">
+								<a class="nav-link" href="/hsf/order/all"  style="color: #1d1d1d">
 									<i class="zmdi zmdi-shopping-basket mr-2"></i>My Orders
 								</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="/hsf/address">
+								<a class="nav-link" href="/hsf/address"  style="color: #1d1d1d">
 									<i class="zmdi zmdi-pin mr-2"></i>My Addresses
 								</a>
 							</li>

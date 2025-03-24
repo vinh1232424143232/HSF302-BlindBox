@@ -158,7 +158,7 @@
 <div class="sidebar">
 	<div class="logo">
 		<a href="/hsf/home">
-			<img src="${pageContext.request.contextPath}/images/icons/logo-01.png" alt="IMG-LOGO">
+			<img src="${pageContext.request.contextPath}/images/icons/logo-02.png" alt="IMG-LOGO">
 		</a>
 	</div>
 
