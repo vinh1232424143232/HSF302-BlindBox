@@ -13,6 +13,8 @@ public interface BlindboxService {
 
     List<Blindbox> getActiveBlindBoxes();
 
+    List<Blindbox> getAllBySearch(String text);
+
     Blindbox getBlindBoxById(int id);
 
     Blindbox createBlindBox(String name, int price, int stock, int brandId, MultipartFile image);
@@ -25,4 +27,6 @@ public interface BlindboxService {
 
     int countActiveBlindBoxes();
 
+    List<Blindbox> ascendListBlindbox();
+    List<Blindbox> descendListBlindbox();
 }

@@ -17,4 +17,5 @@ public interface BlindboxRepository extends JpaRepository<Blindbox, Integer> {
      * Find all active blind boxes
      */
     List<Blindbox> findByActiveTrue();
+
 }

@@ -14,6 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -31,19 +34,48 @@ public class BlindboxServiceImpl implements BlindboxService {
     }
 
     @Override
-    public List<Blindbox> getBlindBoxesByBrand(int brandId) {
-        return blindboxRepository.findByBrandId(brandId);
-    }
-
-    @Override
     public List<Blindbox> getActiveBlindBoxes() {
         return blindboxRepository.findByActiveTrue();
     }
 
     @Override
+    public List<Blindbox> getBlindBoxesByBrand(int brandId) {
+        return blindboxRepository.findByBrandId(brandId);
+    }
+
+    @Override
+    public List<Blindbox> getAllBySearch(String text) {
+        List<Blindbox> all = getActiveBlindBoxes();
+        List<Blindbox> result = new ArrayList<>();
+        for (Blindbox blindbox : all) {
+            if (blindbox.getName().contains(text)) {
+                result.add(blindbox);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public List<Blindbox> ascendListBlindbox() {
+        List<Blindbox> blindboxes = getActiveBlindBoxes();
+        Collections.sort(blindboxes, Comparator.comparingInt(Blindbox::getPrice));
+        return blindboxes;
+    }
+
+    @Override
+    public List<Blindbox> descendListBlindbox() {
+        List<Blindbox> blindboxes = getActiveBlindBoxes();
+        Collections.sort(blindboxes, Comparator.comparingInt(Blindbox::getPrice).reversed());
+        return blindboxes;
+    }
+
+
+
+    @Override
     public Blindbox getBlindBoxById(int id) {
         return blindboxRepository.findById(id).orElse(null);
     }
+
 
     @Override
     @Transactional

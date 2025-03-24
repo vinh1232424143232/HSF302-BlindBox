@@ -445,7 +445,7 @@
 						</div>
 						<div class="col-md-6 form-group">
 							<label>Price</label>
-							<input type="number" name="price" class="form-control" step="0.01" required>
+							<input type="number" name="price" class="form-control" step="1" required>
 						</div>
 					</div>
 					<div class="row">

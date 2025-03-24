@@ -55,7 +55,6 @@
 								<a href="/hsf/product">Shop</a>
 							</li>
 
-
 							<li>
 								<a href="/hsf/user">Profile</a>
 							</li>
@@ -79,22 +78,6 @@
 						</div>
 					</div>
 				</nav>
-			</div>
-		</div>
-
-		<!-- Modal Search -->
-		<div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
-			<div class="container-search-header">
-				<button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-					<img src="${pageContext.request.contextPath}/images/icons/icon-close2.png" alt="CLOSE">
-				</button>
-
-				<form class="wrap-search-header flex-w p-l-15">
-					<button class="flex-c-m trans-04">
-						<i class="zmdi zmdi-search"></i>
-					</button>
-					<input class="plh3" type="text" name="search" placeholder="Search...">
-				</form>
 			</div>
 		</div>
 	</header>
@@ -133,23 +116,12 @@
 						</p>
 						
 						<div class="error-details m-t-20 m-b-30 p-t-20 p-b-20 bg-light">
-							<div class="row">
-								<div class="col-md-6 text-right">
-									<p class="stext-110 cl2">Error Code:</p>
-								</div>
-								<div class="col-md-6 text-left">
-									<p class="stext-110 cl6">${errorCode != null ? errorCode : '500'}</p>
-								</div>
+							<div class="row" style="justify-content: center">
+								<c:if test="${not empty error}">
+									<p style="font-size: 20px">${error}</p>
+								</c:if>
 							</div>
-							
-							<div class="row">
-								<div class="col-md-6 text-right">
-									<p class="stext-110 cl2">Time:</p>
-								</div>
-								<div class="col-md-6 text-left">
-									<p class="stext-110 cl6">${timestamp != null ? timestamp : java.time.LocalDateTime.now()}</p>
-								</div>
-							</div>
+
 						</div>
 						
 						<div class="flex-w flex-m m-t-20" style="justify-content: center">

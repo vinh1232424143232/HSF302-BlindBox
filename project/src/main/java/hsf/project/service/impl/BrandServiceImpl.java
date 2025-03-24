@@ -30,6 +30,11 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
+    public List<Brand> getAllActiveBrands() {
+        return brandRepository.findByActive(true);
+    }
+
+    @Override
     public Brand getBrandById(int id) {
         return brandRepository.findById(id).orElse(null);
     }

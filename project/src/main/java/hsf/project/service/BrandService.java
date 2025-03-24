@@ -8,6 +8,8 @@ import java.util.List;
 public interface BrandService {
     List<Brand> getAllBrands();
 
+    List<Brand> getAllActiveBrands();
+
     Brand getBrandById(int id);
 
     Brand createBrand(String name, String description, MultipartFile logo);
