@@ -15,6 +15,8 @@ public interface BlindboxService {
 
     List<Blindbox> getAllBySearch(String text);
 
+    List<Blindbox> findBlindboxByPriceBetween(int low, int high);
+
     Blindbox getBlindBoxById(int id);
 
     Blindbox createBlindBox(String name, int price, int stock, int brandId, MultipartFile image);

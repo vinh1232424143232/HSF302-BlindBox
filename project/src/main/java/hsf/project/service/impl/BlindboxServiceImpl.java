@@ -44,6 +44,11 @@ public class BlindboxServiceImpl implements BlindboxService {
     }
 
     @Override
+    public List<Blindbox> findBlindboxByPriceBetween(int low, int high) {
+        return blindboxRepository.findByPriceBetweenAndActiveTrue(low, high);
+    }
+
+    @Override
     public List<Blindbox> getAllBySearch(String text) {
         List<Blindbox> all = getActiveBlindBoxes();
         List<Blindbox> result = new ArrayList<>();

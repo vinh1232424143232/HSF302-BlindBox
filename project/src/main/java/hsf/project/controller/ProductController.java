@@ -34,8 +34,11 @@ public class ProductController {
     public String search(@RequestParam String searchProduct, Model model) {
         List<Blindbox> blindboxList = blindboxService.getAllBySearch(searchProduct);
         if (blindboxList.isEmpty()) {
-            model.addAttribute("error","The product doesn't exist");
-            return "error";
+            List<Brand> brandList = brandService.getAllActiveBrands();
+            model.addAttribute("error","Product not found");
+            model.addAttribute("brandList", brandList);
+            model.addAttribute("blindboxList", blindboxList);
+            return "product";
         }
         List<Brand> brandList = brandService.getAllActiveBrands();
         model.addAttribute("brandList", brandList);
@@ -55,6 +58,22 @@ public class ProductController {
     @GetMapping("/brand")
     public String brand(Model model, @RequestParam int id) {
         List<Blindbox> blindboxList = blindboxService.getBlindBoxesByBrand(id);
+        List<Brand> brandList = brandService.getAllActiveBrands();
+        model.addAttribute("brandList", brandList);
+        model.addAttribute("blindboxList", blindboxList);
+        return "product";
+    }
+
+    @GetMapping("/price")
+    public String price(Model model, @RequestParam int low, @RequestParam int high) {
+        List<Blindbox> blindboxList = blindboxService.findBlindboxByPriceBetween(low, high);
+        if (blindboxList.isEmpty()) {
+            List<Brand> brandList = brandService.getAllActiveBrands();
+            model.addAttribute("error","Product not found");
+            model.addAttribute("brandList", brandList);
+            model.addAttribute("blindboxList", blindboxList);
+            return "product";
+        }
         List<Brand> brandList = brandService.getAllActiveBrands();
         model.addAttribute("brandList", brandList);
         model.addAttribute("blindboxList", blindboxList);

@@ -18,4 +18,5 @@ public interface BlindboxRepository extends JpaRepository<Blindbox, Integer> {
      */
     List<Blindbox> findByActiveTrue();
 
+    List<Blindbox> findByPriceBetweenAndActiveTrue(int low, int high);
 }

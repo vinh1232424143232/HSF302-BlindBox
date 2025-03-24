@@ -155,40 +155,61 @@
 
 							<ul>
 								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04 filter-link-active">
+									<a href="/hsf/product" class="filter-link stext-106 trans-04">
 										All
 									</a>
 								</li>
 
 								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										$0.00 - $50.00
-									</a>
+									<form action="/hsf/product/price">
+										<button class="filter-link stext-106 trans-04">
+											$0 - $50.000
+										</button>
+										<input type="hidden" name="low" value="0">
+										<input type="hidden" name="high" value="50000">
+									</form>
 								</li>
 
 								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										$50.00 - $100.00
-									</a>
+									<form action="/hsf/product/price">
+										<button class="filter-link stext-106 trans-04">
+											$50.000 - $100.000
+										</button>
+										<input type="hidden" name="low" value="50000">
+										<input type="hidden" name="high" value="100000">
+									</form>
 								</li>
 
 								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										$100.00 - $150.00
-									</a>
+									<form action="/hsf/product/price">
+										<button class="filter-link stext-106 trans-04">
+											$100.000 - $150.000
+										</button>
+										<input type="hidden" name="low" value="100000">
+										<input type="hidden" name="high" value="150000">
+									</form>
 								</li>
 
 								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										$150.00 - $200.00
-									</a>
+									<form action="/hsf/product/price">
+										<button class="filter-link stext-106 trans-04">
+											$150.000 - $300.000
+										</button>
+										<input type="hidden" name="low" value="150000">
+										<input type="hidden" name="high" value="300000">
+									</form>
 								</li>
 
 								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										$200.00+
-									</a>
+									<form action="/hsf/product/price">
+										<button class="filter-link stext-106 trans-04">
+											$300.000 - $500.000
+										</button>
+										<input type="hidden" name="low" value="300000">
+										<input type="hidden" name="high" value="500000">
+									</form>
 								</li>
+
 							</ul>
 						</div>
 
@@ -214,8 +235,10 @@
 
 			<!-- Product grid -->
 			<div class="row isotope-grid">
+
 				<c:forEach items="${blindboxList}" var="blindbox">
 					<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item">
+
 						<!-- Block2 -->
 						<div class="block2">
 							<div class="block2-pic hov-img0" style="height: 250px">
@@ -250,7 +273,13 @@
 					</div>
 				</c:forEach>
 			</div>
-
+			<div class="flex-c-m flex-w w-full p-t-45">
+				<div class="row" style="justify-content: center">
+					<c:if test="${not empty error}">
+						<p style="font-size: 20px">${error}</p>
+					</c:if>
+				</div>
+			</div>
 			<!-- Load more -->
 			<div class="flex-c-m flex-w w-full p-t-45">
 				<a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
