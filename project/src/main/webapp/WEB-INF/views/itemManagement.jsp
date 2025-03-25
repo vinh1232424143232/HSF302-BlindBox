@@ -245,9 +245,8 @@
 <!-- Main Content -->
 <div class="main-content">
 	<!-- Title page -->
-	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('${pageContext.request.contextPath}/images/bg-01.png');">
+	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url(https://jmmqqyxiiddzgvmqydvy.supabase.co/storage/v1/object/public/image//back-groud-01.png);">
 		<h2 class="ltext-105 cl0 txt-center">
-			Item Management
 		</h2>
 	</section>
 

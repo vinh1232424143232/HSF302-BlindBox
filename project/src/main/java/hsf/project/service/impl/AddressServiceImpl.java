@@ -5,6 +5,9 @@ import hsf.project.pojo.Users;
 import hsf.project.repository.AddressRepository;
 import hsf.project.repository.UserRepository;
 import hsf.project.service.AddressService;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,12 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AddressServiceImpl implements AddressService {
-    @Autowired
-    private AddressRepository addressRepository;
-
-    @Autowired
-    private UserRepository userRepository;
+    AddressRepository addressRepository;
+    UserRepository userRepository;
 
     @Transactional
     @Override
@@ -28,6 +30,7 @@ public class AddressServiceImpl implements AddressService {
                 .number(number)
                 .street(street)
                 .city(city)
+                .isActive(true)
                 .build();
         address.setUser(user);
         return addressRepository.save(address);
@@ -35,8 +38,7 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public Address findById(int id) {
-        Address address = addressRepository.findById(id).orElse(null);
-        return address;
+        return addressRepository.findById(id).orElse(null);
     }
 
     @Override

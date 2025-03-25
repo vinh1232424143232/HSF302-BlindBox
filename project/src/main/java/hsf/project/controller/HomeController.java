@@ -23,6 +23,9 @@ public class HomeController {
     @GetMapping()
     public String homePage(Model model, HttpSession session) {
         List<Brand> brandList = brandService.getAllActiveBrands();
+        if (brandList.size() > 3) {
+            brandList = brandList.subList(0, 3);
+        }
         model.addAttribute("brandList", brandList);
         return "home";
     }

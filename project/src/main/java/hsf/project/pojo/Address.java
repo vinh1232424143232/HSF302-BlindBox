@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Entity
@@ -26,7 +26,7 @@ public class Address {
     String city;
 
     //Relationship with User
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
     Users user;
 

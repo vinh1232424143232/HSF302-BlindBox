@@ -86,27 +86,9 @@
 		</div>
 	</div>
 
-	<!-- Modal Search -->
-	<div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
-		<div class="container-search-header">
-			<button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-				<img src="${pageContext.request.contextPath}/images/icons/icon-close2.png" alt="CLOSE">
-			</button>
-
-			<form class="wrap-search-header flex-w p-l-15">
-				<button class="flex-c-m trans-04">
-					<i class="zmdi zmdi-search"></i>
-				</button>
-				<input class="plh3" type="text" name="search" placeholder="Search...">
-			</form>
-		</div>
-	</div>
 </header>
-
-<!-- Title page -->
-<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('${pageContext.request.contextPath}/images/bg-01.jpg');">
+<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url(https://jmmqqyxiiddzgvmqydvy.supabase.co/storage/v1/object/public/image//back-groud-01.png);">
 	<h2 class="ltext-105 cl0 txt-center">
-		Address Management
 	</h2>
 </section>
 
@@ -159,13 +141,13 @@
 										<p class="stext-115 cl6 m-b-5">${address.city}</p>
 									</div>
 									<div class="col-md-4 text-right">
-										<button type="button" class="btn btn-sm btn-info mb-2" data-toggle="modal" data-target="#editAddressModal${address.id}">
-											<i class="zmdi zmdi-edit"></i> Edit
+										<button type="button" class="btn btn-sm btn-info mr-2" data-toggle="modal" data-target="#editAddressModal${address.id}">
+											<i class="zmdi zmdi-edit"></i>
 										</button>
 											<form action="/hsf/address/delete" method="post" class="d-inline">
 												<input type="hidden" name="id" value="${address.id}">
 												<button type="submit" class="btn btn-sm btn-danger">
-													<i class="zmdi zmdi-delete"></i> Delete
+													<i class="zmdi zmdi-delete"></i>
 												</button>
 											</form>
 									</div>
@@ -187,7 +169,7 @@
 											<div class="modal-body">
 												<div class="row">
 													<div class="col-md-6 form-group">
-														<label>Street Number</label>
+														<label>Number</label>
 														<input type="text" name="number" class="form-control" value="${address.number}" required>
 														<input type="hidden" name="id" class="form-control" value="${address.id}">
 													</div>
@@ -243,7 +225,7 @@
 				<div class="modal-body">
 					<div class="row">
 						<div class="col-md-6 form-group">
-							<label>Street Number</label>
+							<label>Number</label>
 							<input type="text" name="number" class="form-control" required>
 						</div>
 						<div class="col-md-6 form-group">
