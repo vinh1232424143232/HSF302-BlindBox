@@ -19,9 +19,9 @@ public interface BlindboxService {
 
     Blindbox getBlindBoxById(int id);
 
-    Blindbox createBlindBox(String name, int price, int stock, int brandId, MultipartFile image);
+    Blindbox createBlindBox(String name, int price, int stock, int brandId, MultipartFile image, String description);
 
-    Blindbox updateBlindBox(int id, String name, int price, int stock, boolean active, int brandId, MultipartFile image);
+    Blindbox updateBlindBox(int id, String name, int price, int stock, boolean active, int brandId, MultipartFile image, String description);
 
     boolean deleteBlindBox(int id);
 

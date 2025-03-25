@@ -176,6 +176,12 @@
 			</a>
 		</li>
 		<li>
+			<a href="/hsf/management/item">
+				<i class="zmdi zmdi-collection-item"></i>
+				Items
+			</a>
+		</li>
+		<li>
 			<a href="/hsf/management/order">
 				<i class="zmdi zmdi-assignment"></i>
 				Orders
@@ -198,7 +204,7 @@
 
 <div class="main-content">
 	<!-- Title page -->
-	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('${pageContext.request.contextPath}/images/bg-01.jpg');">
+	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('${pageContext.request.contextPath}/images/bg-01.png');">
 		<h2 class="ltext-105 cl0 txt-center">
 			User Management
 		</h2>
@@ -320,7 +326,7 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-6 form-group">
+							<div class="form-group">
 								<label>Role</label>
 								<select name="roleId" class="form-control" required>
 									<option value="">Select Role</option>
@@ -379,7 +385,7 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-6 form-group">
+								<div class="form-group">
 									<label>Status</label>
 									<select name="status" class="form-control">
 										<option value="True">Active</option>

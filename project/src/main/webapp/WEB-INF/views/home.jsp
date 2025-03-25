@@ -90,21 +90,6 @@
 		</div>
 	</div>
 
-	<!-- Modal Search -->
-	<div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
-		<div class="container-search-header">
-			<button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-				<img src="images/icons/icon-close2.png" alt="CLOSE">
-			</button>
-
-			<form class="wrap-search-header flex-w p-l-15">
-				<button class="flex-c-m trans-04">
-					<i class="zmdi zmdi-search"></i>
-				</button>
-				<input class="plh3" type="text" name="search" placeholder="Search...">
-			</form>
-		</div>
-	</div>
 </header>
 
 
@@ -143,6 +128,7 @@
 <!-- Banner -->
 <div class="sec-banner bg0">
 	<div class="flex-w flex-c-m">
+		
 		<div class="size-202 m-lr-auto respon4">
 			<!-- Block1 -->
 			<div class="block1 wrap-pic-w">

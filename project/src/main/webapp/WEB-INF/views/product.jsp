@@ -246,7 +246,7 @@
 
 								<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1" 
 									data-id="${blindbox.id}" 
-									data-brand-description="${blindbox.brand.description}">
+									data-brand-description="${blindbox.description}">
 									Quick View
 								</a>
 							</div>
@@ -403,7 +403,7 @@
 							</div>
 
 							<p class="stext-102 cl3 p-t-23">
-								${blindbox.brand.description}
+								${blindbox.description}
 							</p>
 
 						</div>

@@ -84,12 +84,13 @@ public class BlindboxServiceImpl implements BlindboxService {
 
     @Override
     @Transactional
-    public Blindbox createBlindBox(String name, int price, int stock, int brandId, MultipartFile image) {
+    public Blindbox createBlindBox(String name, int price, int stock, int brandId, MultipartFile image, String description) {
         try {
             Blindbox blindbox = Blindbox.builder()
                     .name(name)
                     .price(price)
                     .stock(stock)
+                    .description(description)
                     .active(true)
                     .build();
             Brand brand = brandRepository.findById(brandId).orElse(null);
@@ -111,7 +112,7 @@ public class BlindboxServiceImpl implements BlindboxService {
 
     @Override
     @Transactional
-    public Blindbox updateBlindBox(int id, String name, int price, int stock, boolean status, int brandId, MultipartFile image) {
+    public Blindbox updateBlindBox(int id, String name, int price, int stock, boolean status, int brandId, MultipartFile image, String description) {
         //Update name, price, stock, status, brandId
         try {
             Blindbox blindbox = blindboxRepository.findById(id).orElse(null);
@@ -120,6 +121,7 @@ public class BlindboxServiceImpl implements BlindboxService {
                 blindbox.setName(name);
                 blindbox.setPrice(price);
                 blindbox.setStock(stock);
+                blindbox.setDescription(description);
                 blindbox.setActive(status);
                 if (brand != null) {
                     blindbox.setBrand(brand);

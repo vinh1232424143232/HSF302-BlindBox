@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class  Blindbox {
+public class Blindbox {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
@@ -30,6 +30,8 @@ public class  Blindbox {
     @JsonBackReference
     Brand brand;
 
+    String description;
+
     //Many to many with cart by Cart detail
     @OneToMany(mappedBy = "blindbox")
     @JsonManagedReference
@@ -38,5 +40,13 @@ public class  Blindbox {
     String url;
 
     //Relationship with Order details
+    @OneToMany(mappedBy = "blindbox")
+    @JsonManagedReference
+    List<OrderDetails> orderDetailsList;
+
+    //One to many with item
+    @OneToMany(mappedBy = "blindbox")
+    @JsonManagedReference
+    List<Item> itemList;
 
 }

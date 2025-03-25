@@ -24,7 +24,11 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public Address create(String number, String street, String city, String email) {
         Users user = userRepository.findByEmail(email);
-        Address address = new Address(number, street, city);
+        Address address = Address.builder()
+                .number(number)
+                .street(street)
+                .city(city)
+                .build();
         address.setUser(user);
         return addressRepository.save(address);
     }

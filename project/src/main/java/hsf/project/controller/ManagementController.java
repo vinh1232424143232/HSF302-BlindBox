@@ -1,13 +1,7 @@
 package hsf.project.controller;
 
-import hsf.project.pojo.Blindbox;
-import hsf.project.pojo.Brand;
-import hsf.project.pojo.Roles;
-import hsf.project.pojo.Users;
-import hsf.project.service.BlindboxService;
-import hsf.project.service.BrandService;
-import hsf.project.service.RoleService;
-import hsf.project.service.UserService;
+import hsf.project.pojo.*;
+import hsf.project.service.*;
 import jakarta.servlet.http.HttpSession;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +25,7 @@ public class ManagementController {
     RoleService roleService;
     BlindboxService blindboxService;
     BrandService brandService;
+    ItemService itemService;
     //=======================================================================================================
     //Mapping
     @GetMapping
@@ -89,6 +84,28 @@ public class ManagementController {
         }
         return "orderManagement";
     }
+
+    @GetMapping("/item")
+    public String itemManagement(HttpSession session, Model model) {
+        Users user = (Users) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login";
+        } else {
+            if (!user.getRole().getRole().equals("ADMIN")) {
+                return "redirect:/login";
+            }
+        }
+        session.setAttribute("user", user);
+        List<Item> itemList = itemService.getAllItems();
+        List<Blindbox> blindboxList = blindboxService.getAllBlindBoxes();
+        int totalItem = itemService.countItems();
+        int totalActiveItem = itemService.countItemsActive();
+        model.addAttribute("items", itemList);
+        model.addAttribute("products", blindboxList);
+        model.addAttribute("totalItem", totalItem);
+        model.addAttribute("totalActiveItem", totalActiveItem);
+        return "itemManagement";
+    }
     //=======================================================================================================
     //Brand
     @PostMapping("/brand/create")
@@ -118,17 +135,17 @@ public class ManagementController {
     //=======================================================================================================
     //Product
     @PostMapping("/product/create")
-    public String createProduct(String name, int price, int stock, int brandId, MultipartFile image) {
-        blindboxService.createBlindBox(name, price, stock, brandId, image);
+    public String createProduct(String name, int price, int stock, int brandId, MultipartFile image, String description) {
+        blindboxService.createBlindBox(name, price, stock, brandId, image, description);
         return "redirect:/management";
     }
 
     @PostMapping("/product/update")
-    public String updateProduct(int id, String name, int price, int stock, int brandId, boolean status, MultipartFile image, RedirectAttributes redirectAttributes) {
+    public String updateProduct(int id, String name, int price, int stock, int brandId, boolean status, MultipartFile image, RedirectAttributes redirectAttributes, String description) {
         if (image.isEmpty()) {
-            blindboxService.updateBlindBox(id, name, price, stock, status, brandId, null);
+            blindboxService.updateBlindBox(id, name, price, stock, status, brandId, null, description);
         } else {
-            blindboxService.updateBlindBox(id, name, price, stock, status, brandId, image);
+            blindboxService.updateBlindBox(id, name, price, stock, status, brandId, image, description);
             redirectAttributes.addFlashAttribute("refreshCache", true);
         }
 
@@ -139,6 +156,31 @@ public class ManagementController {
     public String deleteProduct(int id) {
         blindboxService.deleteBlindBox(id);
         return "redirect:/management";
+    }
+
+    //=======================================================================================================
+    //Product
+    @PostMapping("/item/create")
+    public String createItem(String name, int blindboxId, MultipartFile image) {
+        itemService.saveItem(name, blindboxId, image);
+        return "redirect:/management/item";
+    }
+
+    @PostMapping("/item/update")
+    public String updateItem(int id, String name, int blindboxId, boolean status, MultipartFile image, RedirectAttributes redirectAttributes) {
+        if (image.isEmpty()) {
+            itemService.updateItem(id, name, blindboxId, status, null);
+        } else {
+            itemService.updateItem(id, name, blindboxId, status, image);
+            redirectAttributes.addFlashAttribute("refreshCache", true);
+        }
+        return "redirect:/management/item";
+    }
+
+    @PostMapping("/item/delete")
+    public String deleteItem(int id) {
+        itemService.deleteItem(id);
+        return "redirect:/management/item";
     }
 
     //=======================================================================================================

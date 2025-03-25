@@ -176,6 +176,12 @@
 				Management
 			</a>
 		</li>
+		<li>
+			<a href="/hsf/management/item">
+				<i class="zmdi zmdi-collection-item"></i>
+				Items
+			</a>
+		</li>
 		<li class="active-menu">
 			<a href="/hsf/management/order">
 				<i class="zmdi zmdi-assignment"></i>
@@ -199,7 +205,7 @@
 
 <div class="main-content">
 	<!-- Title page -->
-	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('${pageContext.request.contextPath}/images/bg-01.jpg');">
+	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('${pageContext.request.contextPath}/images/bg-01.png');">
 		<h2 class="ltext-105 cl0 txt-center">
 			Order Management
 		</h2>
