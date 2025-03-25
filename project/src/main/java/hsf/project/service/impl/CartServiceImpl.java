@@ -55,6 +55,11 @@ public class CartServiceImpl implements CartService {
     @Transactional
     public void addToCart(Cart cart,int blindboxId, int quantity) {
         Blindbox blindbox = blindboxRepository.findById(blindboxId).orElse(null);
+        if (blindbox != null) {
+            if (quantity > blindbox.getStock()) {
+                quantity = blindbox.getStock();
+            }
+        }
         List<CartDetails> cartDetailsList = cart.getCartDetailsList();
         int count = 0;
         if (cartDetailsList.isEmpty()) {

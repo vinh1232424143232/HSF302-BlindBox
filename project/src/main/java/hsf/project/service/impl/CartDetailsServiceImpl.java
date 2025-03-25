@@ -53,7 +53,7 @@ public class CartDetailsServiceImpl implements CartDetailService {
     public CartDetails updateCartDetail(int id, int quantity) {
         CartDetails cartDetails = cartDetailsRepository.findById(id).orElse(null);
         if (cartDetails != null) {
-            if (quantity == 0) {
+            if (quantity <= 0) {
                 deleteCartDetail(id);
                 return null;
             }
