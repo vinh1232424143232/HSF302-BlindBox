@@ -1,5 +1,6 @@
 package hsf.project.config;
 
+import hsf.project.enums.RoleType;
 import hsf.project.pojo.Roles;
 import hsf.project.pojo.Users;
 import hsf.project.repository.RoleRepository;
@@ -23,31 +24,22 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     @Transactional
-    public void run(String... args) {
-        // Check if roles already exist
-        if (roleRepository.count() == 0) {
-            System.out.println("Initializing roles...");
-            
-            // Create ADMIN role
-            Roles adminRole = new Roles();
-            adminRole.setRole("ADMIN");
-            roleRepository.save(adminRole);
-            
-            // Create USER role
-            Roles userRole = new Roles();
-            userRole.setRole("USER");
-            roleRepository.save(userRole);
-            
-            System.out.println("Roles created successfully!");
+    public void run(String... args) throws Exception {
+        for (RoleType type : RoleType.values()) {
+            if (roleRepository.findByRole(type) == null) {
+                Roles role = new Roles();
+                role.setRole(type);
+                roleRepository.save(role);
+            }
         }
-        
+
         // Check if admin user exists
         if (userRepository.findByEmail("admin@blindbox.com") == null) {
             System.out.println("Creating admin user...");
-            
+
             // Get the ADMIN role
-            Roles adminRole = roleRepository.findByRole("ADMIN");
-            
+            Roles adminRole = roleRepository.findByRole(RoleType.valueOf("ADMIN"));
+
             if (adminRole != null) {
                 // Create admin user
                 Users admin = new Users();
@@ -57,7 +49,7 @@ public class DataInitializer implements CommandLineRunner {
                 admin.setPhone("1234567890");
                 admin.setActive(true);
                 admin.setRole(adminRole);
-                
+
                 userRepository.save(admin);
                 System.out.println("Admin user created successfully!");
             } else {
@@ -65,4 +57,4 @@ public class DataInitializer implements CommandLineRunner {
             }
         }
     }
-} 
+}

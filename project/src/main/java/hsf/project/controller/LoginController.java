@@ -1,5 +1,6 @@
 package hsf.project.controller;
 
+import hsf.project.enums.CurrentRole;
 import hsf.project.pojo.Users;
 import hsf.project.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -33,9 +34,11 @@ public class LoginController {
             } else {
                 switch (user.getRole().getRole()) {
                     case "ADMIN":
+                        session.setAttribute("currentRole", CurrentRole.ADMIN.toString());
                         session.setAttribute("user", user);
                         return "redirect:/admin/dashboard";
                     case "USER":
+                        session.setAttribute("currentRole", CurrentRole.USER.toString());
                         session.setAttribute("user", user);
                         return "redirect:/home";
 

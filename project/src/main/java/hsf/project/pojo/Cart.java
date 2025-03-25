@@ -12,7 +12,6 @@ import java.util.List;
 @Table
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -30,4 +29,9 @@ public class Cart {
     @OneToOne
     @JsonBackReference
     Users user;
+
+    public Cart(){
+        this.cartDetailsList = List.of();
+    }
+
 }

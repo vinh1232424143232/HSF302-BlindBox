@@ -44,7 +44,7 @@
 
 <!-- Include the new navbar -->
 <c:set var="activePage" value="product" scope="request"/>
-<jsp:include page="/WEB-INF/views/common/navbar.jsp" />
+<jsp:include page="/WEB-INF/views/common/navbar.jsp"/>
 	
 <!-- Product -->
 <div class="bg0 m-t-23 p-b-140">
