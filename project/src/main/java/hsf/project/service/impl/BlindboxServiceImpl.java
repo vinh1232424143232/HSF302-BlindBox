@@ -157,6 +157,16 @@ public class BlindboxServiceImpl implements BlindboxService {
     }
 
     @Override
+    @Transactional
+    public void updateStock(int id, int stock) {
+        Blindbox blindbox = blindboxRepository.findById(id).orElse(null);
+        if (blindbox != null) {
+            blindbox.setStock(stock);
+            blindboxRepository.save(blindbox);
+        }
+    }
+
+    @Override
     public int countTotalBlindBoxes() {
         return blindboxRepository.findAll().size();
     }

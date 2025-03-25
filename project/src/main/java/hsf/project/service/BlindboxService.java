@@ -29,6 +29,8 @@ public interface BlindboxService {
 
     int countActiveBlindBoxes();
 
+    void updateStock(int id, int stock);
+
     List<Blindbox> ascendListBlindbox();
     List<Blindbox> descendListBlindbox();
 }

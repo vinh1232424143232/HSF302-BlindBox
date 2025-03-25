@@ -3,6 +3,7 @@ package hsf.project.service.impl;
 import hsf.project.pojo.Users;
 import hsf.project.repository.RoleRepository;
 import hsf.project.repository.UserRepository;
+import hsf.project.service.CartService;
 import hsf.project.service.UserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     UserRepository userRepository;
     RoleRepository roleRepository;
+    CartService cartService;
 
     public Users login(String email) {
         return userRepository.findByEmail(email);
@@ -29,6 +31,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void create(Users user) {
         userRepository.save(user);
+        cartService.createCart(user);
     }
 
     @Override

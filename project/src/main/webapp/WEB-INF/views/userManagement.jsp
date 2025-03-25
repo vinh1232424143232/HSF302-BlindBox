@@ -325,7 +325,7 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="form-group">
+							<div class="form-group col-md-12">
 								<label>Role</label>
 								<select name="roleId" class="form-control" required>
 									<option value="">Select Role</option>
@@ -384,7 +384,7 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="form-group">
+								<div class="form-group col-md-12">
 									<label>Status</label>
 									<select name="status" class="form-control">
 										<option value="True">Active</option>

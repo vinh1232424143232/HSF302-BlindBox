@@ -1,7 +1,12 @@
 package hsf.project.service;
 
-import org.springframework.stereotype.Service;
+import hsf.project.pojo.Cart;
+import hsf.project.pojo.Users;
 
-@Service
-public class CartService {
+public interface CartService {
+    Cart createCart(Users user);
+    Cart getCart(int cartId);
+    void deleteCart(int cartId);
+    void addToCart(Cart cart,int blindboxId, int quantity);
+    int totalCart(Cart cart);
 }
