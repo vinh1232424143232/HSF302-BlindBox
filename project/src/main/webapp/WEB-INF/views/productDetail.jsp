@@ -90,22 +90,6 @@
 			</nav>
 		</div>
 	</div>
-
-	<!-- Modal Search -->
-	<div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
-		<div class="container-search-header">
-			<button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-				<img src="${pageContext.request.contextPath}/images/icons/icon-close2.png" alt="CLOSE">
-			</button>
-
-			<form class="wrap-search-header flex-w p-l-15">
-				<button class="flex-c-m trans-04">
-					<i class="zmdi zmdi-search"></i>
-				</button>
-				<input class="plh3" type="text" name="search" placeholder="Search...">
-			</form>
-		</div>
-	</div>
 </header>
 <section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url(https://jmmqqyxiiddzgvmqydvy.supabase.co/storage/v1/object/public/image//back-groud-01.png);">
 	<h2 class="ltext-105 cl0 txt-center">
@@ -147,10 +131,6 @@
 								<div class="item-slick3" data-thumb="${blindbox.url}?timestamp=${System.currentTimeMillis()}">
 									<div class="wrap-pic-w pos-relative">
 										<img src="${blindbox.url}?timestamp=${System.currentTimeMillis()}" alt="IMG-PRODUCT">
-
-										<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="${blindbox.url}?timestamp=${System.currentTimeMillis()}">
-											<i class="fa fa-expand"></i>
-										</a>
 									</div>
 								</div>
 							</div>
@@ -178,9 +158,7 @@
 											<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
 												<i class="fs-16 zmdi zmdi-minus"></i>
 											</div>
-											<input type="hidden" name="blindboxId" value="${blindbox.id}">
 											<input class="mtext-104 cl3 txt-center num-product" type="number" name="quantity" value="1">
-
 											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
 												<i class="fs-16 zmdi zmdi-plus"></i>
 											</div>
@@ -189,6 +167,7 @@
 										<button type="submit" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
 											Add to cart
 										</button>
+										<input type="hidden" name="blindboxId" value="${blindbox.id}">
 									</form>
 								</div>
 							</div>	
