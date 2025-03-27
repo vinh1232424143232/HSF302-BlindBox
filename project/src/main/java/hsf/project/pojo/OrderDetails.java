@@ -23,12 +23,12 @@ public class OrderDetails {
     int quantity;
 
     //Relationship with Blind box
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
     Blindbox blindbox;
 
     //Relationship with Order
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
     Orders order;
 }

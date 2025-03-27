@@ -26,7 +26,7 @@ public class Blindbox {
     boolean active;
 
     //Relationship with brand
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
     Brand brand;
 

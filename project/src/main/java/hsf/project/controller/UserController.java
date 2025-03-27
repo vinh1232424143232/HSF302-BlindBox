@@ -1,9 +1,14 @@
 package hsf.project.controller;
 
+import hsf.project.pojo.Orders;
 import hsf.project.pojo.Users;
 import hsf.project.service.UserService;
+import hsf.project.service.impl.OrderServiceImpl;
 import hsf.project.service.impl.RoleServiceImpl;
 import jakarta.servlet.http.HttpSession;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,16 +18,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Controller
 @RequestMapping("/user")
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserController {
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private RoleServiceImpl roleServiceImpl;
+    UserService userService;
+    RoleServiceImpl roleServiceImpl;
+    OrderServiceImpl orderServiceImpl;
 
 
     @GetMapping()
@@ -65,6 +75,18 @@ public class UserController {
         return "management";
     }
 
+    @GetMapping("/order/all")
+    public String all(HttpSession session) {
+        Users users = (Users) session.getAttribute("user");
+        if (users == null) {
+            return "redirect:/login";
+        }
+        List<Orders> ordersList = orderServiceImpl.getOrdersByUser(users);
+        session.setAttribute("orders", ordersList);
+
+        return "order";
+    }
+
     @PostMapping("/register")
     public String register(@RequestParam String fullName, @RequestParam String email, @RequestParam String password, @RequestParam String confirmPassword, @RequestParam String phone) {
         if (password.equals(confirmPassword)) {
@@ -102,6 +124,10 @@ public class UserController {
             model.addAttribute("status", "Can't delete user");
             return "management";
         }
+    }
+
+    private Date convertToDate(LocalDateTime localDateTime) {
+        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 
 }

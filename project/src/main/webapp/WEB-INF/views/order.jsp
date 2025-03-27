@@ -49,35 +49,40 @@
 
 				<!-- Logo desktop -->
 				<a href="/hsf/home" class="logo">
-					<img src="${pageContext.request.contextPath}/images/icons/logo-01.png" alt="IMG-LOGO">
+					<img src="${pageContext.request.contextPath}images/icons/logo-01.png" alt="IMG-LOGO">
 				</a>
 
 				<!-- Menu desktop -->
 				<div class="menu-desktop">
 					<ul class="main-menu">
-						<li>
+						<li >
 							<a href="/hsf/home">Home</a>
 						</li>
+
 						<li>
 							<a href="/hsf/product">Shop</a>
 						</li>
+
 						<li class="active-menu">
 							<a href="/hsf/user">Profile</a>
 						</li>
+
 					</ul>
 				</div>
 
 				<!-- Icon header -->
 				<div class="wrap-icon-header flex-w flex-r-m h-full">
 					<div class="flex-c-m h-full p-r-24">
-						<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-modal-search">
-							<i class="zmdi zmdi-search"></i>
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 ">
+							<a href="/hsf/cart" style="color: inherit;">
+								<i class="zmdi zmdi-shopping-cart"></i>
+							</a>
 						</div>
 					</div>
-					
+
 					<div class="flex-c-m h-full p-lr-19">
 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11">
-							<a href="/hsf/logout" style="color: inherit;">
+							<a href="${pageContext.request.contextPath}/logout" style="color: inherit;">
 								<i class="zmdi zmdi-power"></i>
 							</a>
 						</div>
@@ -153,8 +158,9 @@
 											</span>
 										</td>
 										<td>
-											<span class="badge ${order.status ? 'badge-success' : 'badge-secondary'}">
-												${order.status ? 'Active' : 'Inactive'}
+											<span class="badge ${order.status == 'COMPLETED' ? 'badge-success' :
+												order.status == 'WAITING' ?'badge-secondary' : 'badge-danger'}">
+ 												${order.status}
 											</span>
 										</td>
 										<td>
@@ -164,44 +170,6 @@
 										</td>
 									</tr>
 								</c:forEach>
-								
-								<!-- Example data (remove in production) -->
-								<tr>
-									<td>#1001</td>
-									<td>2023-06-15 14:30</td>
-									<td>$125.50</td>
-									<td><span class="badge badge-success">PAID</span></td>
-									<td><span class="badge badge-success">Active</span></td>
-									<td>
-										<button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#orderDetailModal1">
-											<i class="zmdi zmdi-eye"></i> View
-										</button>
-									</td>
-								</tr>
-								<tr>
-									<td>#1002</td>
-									<td>2023-06-10 09:45</td>
-									<td>$78.25</td>
-									<td><span class="badge badge-warning">PENDING</span></td>
-									<td><span class="badge badge-success">Active</span></td>
-									<td>
-										<button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#orderDetailModal2">
-											<i class="zmdi zmdi-eye"></i> View
-										</button>
-									</td>
-								</tr>
-								<tr>
-									<td>#1003</td>
-									<td>2023-05-28 16:20</td>
-									<td>$214.75</td>
-									<td><span class="badge badge-danger">FAILED</span></td>
-									<td><span class="badge badge-secondary">Inactive</span></td>
-									<td>
-										<button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#orderDetailModal3">
-											<i class="zmdi zmdi-eye"></i> View
-										</button>
-									</td>
-								</tr>
 							</tbody>
 						</table>
 					</div>
@@ -221,149 +189,68 @@
 	</div>
 </section>
 
-<!-- Order Detail Modal Example (Will be dynamically generated for each order) -->
-<div class="modal fade" id="orderDetailModal1" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header bg3">
-				<h5 class="modal-title text-white">Order Details - #1001</h5>
-				<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div class="order-info mb-4">
-					<div class="row">
-						<div class="col-md-6">
-							<h6 class="mb-2">Order Information</h6>
-							<p><strong>Order Date:</strong> 2023-06-15 14:30</p>
-							<p><strong>Payment Status:</strong> <span class="badge badge-success">PAID</span></p>
-							<p><strong>Order Status:</strong> <span class="badge badge-success">Active</span></p>
-						</div>
-						<div class="col-md-6">
-							<h6 class="mb-2">Shipping Address</h6>
-							<p>John Doe</p>
-							<p>123 Main Street</p>
-							<p>New York</p>
+<c:forEach items="${orders}" var="order">
+	<!-- Order Detail Modal Example (Will be dynamically generated for each order) -->
+	<div class="modal fade" id="orderDetailModal${order.id}" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header bg3">
+					<h5 class="modal-title text-white">Order Details - #${order.id}</h5>
+					<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="order-info mb-4">
+						<div class="row">
+							<div class="col-md-6">
+								<h6 class="mb-2">Order Information</h6>
+								<p><strong>Order Date:</strong> ${order.createdAt}</p>
+								<p><strong>Payment Status:</strong> <span class="badge ${order.paymentStatus == 'PAID' ? 'badge-success' :
+												order.paymentStatus == 'PENDING' ? 'badge-warning' :
+												'badge-danger'}">${order.paymentStatus}</span></p>
+								<p><strong>Order Status:</strong> <span class="badge ${order.status == 'COMPLETED' ? 'badge-success' :
+												order.status == 'WAITING' ?'badge-secondary' : 'badge-danger'}">${order.status}</span></p>
+							</div>
+							<div class="col-md-6">
+								<h6 class="mb-2">Shipping Address</h6>
+								<p>${order.user.fullName}</p>
+								<p>${order.address.number} - ${order.address.street}</p>
+								<p>${order.address.city}</p>
+							</div>
 						</div>
 					</div>
-				</div>
-				
-				<h6 class="mb-3">Items Ordered</h6>
-				<div class="table-responsive">
-					<table class="table table-bordered">
-						<thead class="bg-light">
-							<tr>
-								<th>Product</th>
-								<th>Price</th>
-								<th>Quantity</th>
-								<th>Total</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>
-									<div class="d-flex align-items-center">
-										<img src="${pageContext.request.contextPath}/images/product-01.jpg" alt="Product" style="width: 50px; height: 50px; object-fit: cover;">
-										<span class="ml-2">Esprit Ruffle Shirt</span>
-									</div>
-								</td>
-								<td>$25.50</td>
-								<td>2</td>
-								<td>$51.00</td>
-							</tr>
-							<tr>
-								<td>
-									<div class="d-flex align-items-center">
-										<img src="${pageContext.request.contextPath}/images/product-02.jpg" alt="Product" style="width: 50px; height: 50px; object-fit: cover;">
-										<span class="ml-2">Herschel supply</span>
-									</div>
-								</td>
-								<td>$74.50</td>
-								<td>1</td>
-								<td>$74.50</td>
-							</tr>
-						</tbody>
-						<tfoot>
-							<tr>
-								<td colspan="3" class="text-right"><strong>Subtotal</strong></td>
-								<td>$125.50</td>
-							</tr>
-							<tr>
-								<td colspan="3" class="text-right"><strong>Shipping</strong></td>
-								<td>$0.00</td>
-							</tr>
-							<tr>
-								<td colspan="3" class="text-right"><strong>Total</strong></td>
-								<td><strong>$125.50</strong></td>
-							</tr>
-						</tfoot>
-					</table>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
-</div>
 
-<!-- Order Detail Modal for Pending Example -->
-<div class="modal fade" id="orderDetailModal2" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header bg3">
-				<h5 class="modal-title text-white">Order Details - #1002</h5>
-				<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div class="order-info mb-4">
-					<div class="row">
-						<div class="col-md-6">
-							<h6 class="mb-2">Order Information</h6>
-							<p><strong>Order Date:</strong> 2023-06-10 09:45</p>
-							<p><strong>Payment Status:</strong> <span class="badge badge-warning">PENDING</span></p>
-							<p><strong>Order Status:</strong> <span class="badge badge-success">Active</span></p>
-						</div>
-						<div class="col-md-6">
-							<h6 class="mb-2">Shipping Address</h6>
-							<p>John Doe</p>
-							<p>456 Park Avenue</p>
-							<p>Los Angeles</p>
-						</div>
-					</div>
-				</div>
-				
-				<h6 class="mb-3">Items Ordered</h6>
-				<div class="table-responsive">
-					<table class="table table-bordered">
-						<thead class="bg-light">
+					<h6 class="mb-3">Items Ordered</h6>
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<thead class="bg-light">
 							<tr>
 								<th>Product</th>
 								<th>Price</th>
 								<th>Quantity</th>
 								<th>Total</th>
 							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>
-									<div class="d-flex align-items-center">
-										<img src="${pageContext.request.contextPath}/images/product-03.jpg" alt="Product" style="width: 50px; height: 50px; object-fit: cover;">
-										<span class="ml-2">Classic Trench Coat</span>
-									</div>
-								</td>
-								<td>$78.25</td>
-								<td>1</td>
-								<td>$78.25</td>
-							</tr>
-						</tbody>
-						<tfoot>
+							</thead>
+							<tbody>
+							<c:forEach items="${order.orderDetailsList}" var="orderDetail">
+								<tr>
+									<td>
+										<div class="d-flex align-items-center">
+											<img src="${orderDetail.blindbox.url}" alt="Product" style="width: 50px; height: 50px; object-fit: cover;">
+											<span class="ml-2">${orderDetail.blindbox.name}</span>
+										</div>
+									</td>
+									<td>$${orderDetail.blindbox.price}</td>
+									<td>${orderDetail.quantity}</td>
+									<td>$${orderDetail.quantity * orderDetail.blindbox.price}</td>
+								</tr>
+							</c:forEach>
+							</tbody>
+							<tfoot>
 							<tr>
 								<td colspan="3" class="text-right"><strong>Subtotal</strong></td>
-								<td>$78.25</td>
+								<td>$${order.amount}</td>
 							</tr>
 							<tr>
 								<td colspan="3" class="text-right"><strong>Shipping</strong></td>
@@ -371,119 +258,20 @@
 							</tr>
 							<tr>
 								<td colspan="3" class="text-right"><strong>Total</strong></td>
-								<td><strong>$78.25</strong></td>
+								<td><strong>$${order.amount}</strong></td>
 							</tr>
-						</tfoot>
-					</table>
-				</div>
-				
-				<div class="alert alert-warning mt-3">
-					<i class="zmdi zmdi-alert-circle-o mr-2"></i> Your payment is pending. Please complete the payment to process your order.
-					<div class="mt-3">
-						<button class="btn btn-primary bg3">Complete Payment</button>
+							</tfoot>
+						</table>
 					</div>
 				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
+</c:forEach>
 
-<!-- Order Detail Modal for Failed Example -->
-<div class="modal fade" id="orderDetailModal3" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header bg3">
-				<h5 class="modal-title text-white">Order Details - #1003</h5>
-				<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div class="order-info mb-4">
-					<div class="row">
-						<div class="col-md-6">
-							<h6 class="mb-2">Order Information</h6>
-							<p><strong>Order Date:</strong> 2023-05-28 16:20</p>
-							<p><strong>Payment Status:</strong> <span class="badge badge-danger">FAILED</span></p>
-							<p><strong>Order Status:</strong> <span class="badge badge-secondary">Inactive</span></p>
-						</div>
-						<div class="col-md-6">
-							<h6 class="mb-2">Shipping Address</h6>
-							<p>John Doe</p>
-							<p>789 Sunset Blvd</p>
-							<p>Chicago</p>
-						</div>
-					</div>
-				</div>
-				
-				<h6 class="mb-3">Items Ordered</h6>
-				<div class="table-responsive">
-					<table class="table table-bordered">
-						<thead class="bg-light">
-							<tr>
-								<th>Product</th>
-								<th>Price</th>
-								<th>Quantity</th>
-								<th>Total</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>
-									<div class="d-flex align-items-center">
-										<img src="${pageContext.request.contextPath}/images/product-04.jpg" alt="Product" style="width: 50px; height: 50px; object-fit: cover;">
-										<span class="ml-2">Light Denim Jacket</span>
-									</div>
-								</td>
-								<td>$92.50</td>
-								<td>1</td>
-								<td>$92.50</td>
-							</tr>
-							<tr>
-								<td>
-									<div class="d-flex align-items-center">
-										<img src="${pageContext.request.contextPath}/images/product-05.jpg" alt="Product" style="width: 50px; height: 50px; object-fit: cover;">
-										<span class="ml-2">Front Pocket Jumper</span>
-									</div>
-								</td>
-								<td>$61.25</td>
-								<td>2</td>
-								<td>$122.25</td>
-							</tr>
-						</tbody>
-						<tfoot>
-							<tr>
-								<td colspan="3" class="text-right"><strong>Subtotal</strong></td>
-								<td>$214.75</td>
-							</tr>
-							<tr>
-								<td colspan="3" class="text-right"><strong>Shipping</strong></td>
-								<td>$0.00</td>
-							</tr>
-							<tr>
-								<td colspan="3" class="text-right"><strong>Total</strong></td>
-								<td><strong>$214.75</strong></td>
-							</tr>
-						</tfoot>
-					</table>
-				</div>
-				
-				<div class="alert alert-danger mt-3">
-					<i class="zmdi zmdi-close-circle mr-2"></i> Payment failed. There was an issue processing your payment.
-					<div class="mt-3">
-						<button class="btn btn-primary bg3">Try Again</button>
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
-</div>
 
 <!-- Footer -->
 <footer class="bg3 p-t-75 p-b-32">

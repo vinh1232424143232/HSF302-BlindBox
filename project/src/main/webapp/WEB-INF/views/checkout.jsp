@@ -48,23 +48,23 @@
             <nav class="limiter-menu-desktop p-l-45">
 
                 <!-- Logo desktop -->
-                <a href="${pageContext.request.contextPath}/home" class="logo">
+                <a href="/hsf/home" class="logo">
                     <img src="images/icons/logo-01.png" alt="IMG-LOGO">
                 </a>
 
                 <!-- Menu desktop -->
                 <div class="menu-desktop">
                     <ul class="main-menu">
-                        <li>
-                            <a href="${pageContext.request.contextPath}/home">Home</a>
+                        <li class="active-menu">
+                            <a href="/hsf/home">Home</a>
                         </li>
 
                         <li>
-                            <a href="${pageContext.request.contextPath}/product">Shop</a>
+                            <a href="/hsf/product">Shop</a>
                         </li>
 
                         <li>
-                            <a href="${pageContext.request.contextPath}/user">Profile</a>
+                            <a href="/hsf/user">Profile</a>
                         </li>
 
                     </ul>
@@ -74,7 +74,7 @@
                 <div class="wrap-icon-header flex-w flex-r-m h-full">
                     <div class="flex-c-m h-full p-r-24">
                         <div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 ">
-                            <a href="${pageContext.request.contextPath}/cart" style="color: inherit;">
+                            <a href="/hsf/cart" style="color: inherit;">
                                 <i class="zmdi zmdi-shopping-cart"></i>
                             </a>
                         </div>
@@ -157,7 +157,7 @@
                     Checkout Summary
                 </h4>
 
-                <form action="${pageContext.request.contextPath}/checkout/place-order" method="post">
+                <form action="/hsf/order/create" method="post">
                     <div class="flex-w flex-t bor12 p-b-13">
                         <div class="size-208">
                             <span class="stext-110 cl2">
@@ -181,7 +181,7 @@
                         <div class="size-209 p-r-18 p-r-0-sm w-full-ssm">
                             <div class="">
                                 <div class="bor8 bg0 m-b-12 m-t-9">
-                                    <select class="form-control" name="address" required>
+                                    <select class="form-control" name="addressId" required>
                                             <c:forEach items="${user.addresses}" var="address">
                                                 <option value="${address.id}">
                                                         ${address.number}, ${address.street}, ${address.city}

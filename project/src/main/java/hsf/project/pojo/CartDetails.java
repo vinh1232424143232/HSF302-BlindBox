@@ -20,12 +20,12 @@ public class CartDetails {
     int quantity;
 
     //Relationship with blind box
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
     Blindbox blindbox;
 
     //Relationship with cart
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
     Cart cart;
 }

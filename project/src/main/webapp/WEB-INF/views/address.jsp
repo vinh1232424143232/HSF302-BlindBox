@@ -48,35 +48,40 @@
 
 				<!-- Logo desktop -->
 				<a href="/hsf/home" class="logo">
-					<img src="${pageContext.request.contextPath}/images/icons/logo-01.png" alt="IMG-LOGO">
+					<img src="images/icons/logo-01.png" alt="IMG-LOGO">
 				</a>
 
 				<!-- Menu desktop -->
 				<div class="menu-desktop">
 					<ul class="main-menu">
-						<li>
+						<li >
 							<a href="/hsf/home">Home</a>
 						</li>
+
 						<li>
 							<a href="/hsf/product">Shop</a>
 						</li>
+
 						<li class="active-menu">
 							<a href="/hsf/user">Profile</a>
 						</li>
+
 					</ul>
 				</div>
 
 				<!-- Icon header -->
 				<div class="wrap-icon-header flex-w flex-r-m h-full">
 					<div class="flex-c-m h-full p-r-24">
-						<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-modal-search">
-							<i class="zmdi zmdi-search"></i>
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 ">
+							<a href="/hsf/cart" style="color: inherit;">
+								<i class="zmdi zmdi-shopping-cart"></i>
+							</a>
 						</div>
 					</div>
-					
+
 					<div class="flex-c-m h-full p-lr-19">
 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11">
-							<a href="/hsf/logout" style="color: inherit;">
+							<a href="${pageContext.request.contextPath}/logout" style="color: inherit;">
 								<i class="zmdi zmdi-power"></i>
 							</a>
 						</div>
@@ -85,7 +90,6 @@
 			</nav>
 		</div>
 	</div>
-
 </header>
 <section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url(https://jmmqqyxiiddzgvmqydvy.supabase.co/storage/v1/object/public/image//back-groud-01.png);">
 	<h2 class="ltext-105 cl0 txt-center">
@@ -106,7 +110,7 @@
 								</a>
 							</li>
 							<li class="nav-item mb-2">
-								<a class="nav-link" href="/hsf/order/all" style="color:#1d1d1d">
+								<a class="nav-link" href="/hsf/user/order/all" style="color:#1d1d1d">
 									<i class="zmdi zmdi-shopping-basket mr-2"></i>My Orders
 								</a>
 							</li>

@@ -111,7 +111,7 @@
 								</a>
 							</li>
 							<li class="nav-item mb-2">
-								<a class="nav-link" href="/hsf/order/all"  style="color: #1d1d1d">
+								<a class="nav-link" href="/hsf/user/order/all"  style="color: #1d1d1d">
 									<i class="zmdi zmdi-shopping-basket mr-2"></i>My Orders
 								</a>
 							</li>

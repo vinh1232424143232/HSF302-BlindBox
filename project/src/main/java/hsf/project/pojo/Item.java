@@ -21,7 +21,7 @@ public class Item {
     String name;
     boolean active;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
     Blindbox blindbox;
 }

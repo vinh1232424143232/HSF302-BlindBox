@@ -27,7 +27,7 @@ public class CartServiceImpl implements CartService {
     UserRepository userRepository;
     BlindboxRepository blindboxRepository;
     CartDetailService cartDetailService;
-    private final CartDetailsRepository cartDetailsRepository;
+    CartDetailsRepository cartDetailsRepository;
 
     @Override
     @Transactional

@@ -22,7 +22,7 @@ public class Cart {
     int id;
 
     //Many to Many with Blind box by Cart details
-    @OneToMany(mappedBy = "cart")
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     List<CartDetails> cartDetailsList;
 

@@ -31,8 +31,9 @@
 <!--===============================================================================================-->
 </head>
 <body class="animsition">
-	
-	<!-- Header -->
+
+<header class="header-v2">
+	<!-- Header desktop -->
 	<div class="container-menu-desktop trans-03">
 		<div class="wrap-menu-desktop">
 			<nav class="limiter-menu-desktop p-l-45">
@@ -45,7 +46,7 @@
 				<!-- Menu desktop -->
 				<div class="menu-desktop">
 					<ul class="main-menu">
-						<li class="active-menu">
+						<li >
 							<a href="/hsf/home">Home</a>
 						</li>
 
@@ -53,14 +54,9 @@
 							<a href="/hsf/product">Shop</a>
 						</li>
 
-						<li>
-							<a href="/hsf/cart">Cart</a>
-						</li>
-
-						<li>
+						<li class="active-menu">
 							<a href="/hsf/user">Profile</a>
 						</li>
-
 
 					</ul>
 				</div>
@@ -68,8 +64,10 @@
 				<!-- Icon header -->
 				<div class="wrap-icon-header flex-w flex-r-m h-full">
 					<div class="flex-c-m h-full p-r-24">
-						<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-modal-search">
-							<i class="zmdi zmdi-search"></i>
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 ">
+							<a href="/hsf/cart" style="color: inherit;">
+								<i class="zmdi zmdi-shopping-cart"></i>
+							</a>
 						</div>
 					</div>
 
@@ -84,10 +82,11 @@
 			</nav>
 		</div>
 	</div>
-	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url(https://jmmqqyxiiddzgvmqydvy.supabase.co/storage/v1/object/public/image//back-groud-01.png);">
-		<h2 class="ltext-105 cl0 txt-center">
-		</h2>
-	</section>
+</header>
+<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url(https://jmmqqyxiiddzgvmqydvy.supabase.co/storage/v1/object/public/image//back-groud-01.png);">
+	<h2 class="ltext-105 cl0 txt-center">
+	</h2>
+</section>
 
 	<!-- breadcrumb -->
 	<div class="container">
