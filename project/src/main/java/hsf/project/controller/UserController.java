@@ -72,6 +72,7 @@ public class UserController {
                     .email(email)
                     .fullName(fullName)
                     .password(password)
+                    .active(true)
                     .phone(phone)
                     .build();
             user.setRole(roleServiceImpl.getRolesById(2));

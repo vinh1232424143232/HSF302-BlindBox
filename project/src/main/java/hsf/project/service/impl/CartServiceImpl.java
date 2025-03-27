@@ -5,6 +5,7 @@ import hsf.project.pojo.Cart;
 import hsf.project.pojo.CartDetails;
 import hsf.project.pojo.Users;
 import hsf.project.repository.BlindboxRepository;
+import hsf.project.repository.CartDetailsRepository;
 import hsf.project.repository.CartRepository;
 import hsf.project.repository.UserRepository;
 import hsf.project.service.CartDetailService;
@@ -26,6 +27,7 @@ public class CartServiceImpl implements CartService {
     UserRepository userRepository;
     BlindboxRepository blindboxRepository;
     CartDetailService cartDetailService;
+    private final CartDetailsRepository cartDetailsRepository;
 
     @Override
     @Transactional
@@ -39,11 +41,9 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Cart getCart(int cartId) {
-        return cartRepository.findById(cartId).orElse(null);
+    public Cart getCartByUser(Users users) {
+        return cartRepository.findByUser(users);
     }
-
-
 
     @Override
     @Transactional
@@ -80,9 +80,9 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public int totalCart(Cart cart) {
-        List<CartDetails> cartDetailsList = cart.getCartDetailsList();
+        List<CartDetails> cartDetailsList = cartDetailsRepository.findByCart(cart);
         int total = 0;
-        if (!cartDetailsList.isEmpty()) {
+        if (cartDetailsList != null && !cartDetailsList.isEmpty()) {
             for (CartDetails cartDetails : cartDetailsList) {
                 total += cartDetails.getQuantity()*cartDetails.getBlindbox().getPrice();
             }

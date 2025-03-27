@@ -1,8 +1,10 @@
 package hsf.project.controller;
 
+import hsf.project.pojo.Address;
 import hsf.project.pojo.Cart;
 import hsf.project.pojo.CartDetails;
 import hsf.project.pojo.Users;
+import hsf.project.service.AddressService;
 import hsf.project.service.CartDetailService;
 import hsf.project.service.CartService;
 import hsf.project.service.impl.CartServiceImpl;
@@ -25,18 +27,25 @@ import java.util.List;
 public class CartController {
     CartService cartService;
     CartDetailService cartDetailService;
+    private final AddressService addressService;
 
     @GetMapping()
     public String cart(HttpSession session, Model model) {
         Users user = (Users) session.getAttribute("user");
-        if (session.getAttribute("user") == null) {
+
+        if (user == null) {
             return "redirect:/login";
         }
-        session.setAttribute("user", user);
-        Cart cart = cartService.getCart(user.getCart().getId());
-        int total = cartService.totalCart(cart);
+        Cart cart = (Cart) session.getAttribute("cart");
+        if (cart == null) {
+            cart = cartService.getCartByUser(user);
+            if(cart == null) {
+                cart = cartService.createCart(user);
+            }
+            session.setAttribute("cart", cart);
+        }
         List<CartDetails> cartDetails = cartDetailService.getCartDetailsByCart(cart);
-        model.addAttribute("cart", cart);
+        int total = cartService.totalCart(cart);
         model.addAttribute("cartDetails", cartDetails);
         model.addAttribute("total", total);
         return "cart";
@@ -48,9 +57,10 @@ public class CartController {
         if (session.getAttribute("user") == null) {
             return "redirect:/login";
         }
-        Cart cart = cartService.getCart(user.getCart().getId());
+        Cart cart = cartService.getCartByUser(user);
         cartService.addToCart(cart, blindboxId, quantity);
         List<CartDetails> cartDetails = cartDetailService.getCartDetailsByCart(cart);
+
         model.addAttribute("cart", cart);
         model.addAttribute("cartDetails", cartDetails);
         return "redirect:/cart";
@@ -62,11 +72,12 @@ public class CartController {
         if (session.getAttribute("user") == null) {
             return "redirect:/login";
         }
-        Cart cart = cartService.getCart(user.getCart().getId());
+        Cart cart = cartService.getCartByUser(user);
         cartDetailService.updateCartDetail(id, quantity);
         List<CartDetails> cartDetails = cartDetailService.getCartDetailsByCart(cart);
         model.addAttribute("cart", cart);
         model.addAttribute("cartDetails", cartDetails);
         return "redirect:/cart";
     }
+
 }

@@ -5,7 +5,7 @@ import hsf.project.pojo.Users;
 
 public interface CartService {
     Cart createCart(Users user);
-    Cart getCart(int cartId);
+    Cart getCartByUser(Users user);
     void deleteCart(int cartId);
     void addToCart(Cart cart,int blindboxId, int quantity);
     int totalCart(Cart cart);
