@@ -49,7 +49,7 @@
 
 				<!-- Logo desktop -->
 				<a href="/hsf/home" class="logo">
-					<img src="images/icons/logo-01.png" alt="IMG-LOGO">
+					<img src="${pageContext.request.contextPath}/images/icons/logo-01.png" alt="IMG-LOGO">
 				</a>
 
 				<!-- Menu desktop -->
