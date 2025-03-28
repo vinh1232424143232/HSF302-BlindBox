@@ -192,7 +192,7 @@ public class VNPayService {
                 orderRepository.save(orders);
 
                 ///URL khi payment thất bại
-                url = "http://localhost:8181/hsf/payment/failed";
+                url = "http://localhost:8181/hsf/payment/fail";
             } catch (Exception e) {
             }
         }

@@ -54,9 +54,9 @@ public class PaymentController {
         return "success";
     }
 
-    @GetMapping("/failed")
+    @GetMapping("/fail")
     public String checkoutFailed() {
-        return "failed";
+        return "fail";
     }
 
     @PostMapping(path = "/create")

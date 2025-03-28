@@ -40,7 +40,7 @@
 
 				<!-- Logo desktop -->
 				<a href="/hsf/home" class="logo">
-					<img src="images/icons/logo-01.png" alt="IMG-LOGO">
+					<img src="${pageContext.request.contextPath}/images/icons/logo-01.png" alt="IMG-LOGO">
 				</a>
 
 				<!-- Menu desktop -->
@@ -126,35 +126,15 @@
 							Please check your payment details and try again.
 						</p>
 						
-						<div class="error-details m-t-20 m-b-30 p-t-20 p-b-20">
-							<div class="row">
-								<div class="col-md-6 text-right">
-									<p class="stext-110 cl2">Error Code:</p>
-								</div>
-								<div class="col-md-6 text-left">
-									<p class="stext-110 cl6">${errorCode}</p>
-								</div>
-							</div>
-							
-							<div class="row">
-								<div class="col-md-6 text-right">
-									<p class="stext-110 cl2">Error Message:</p>
-								</div>
-								<div class="col-md-6 text-left">
-									<p class="stext-110 cl6">${errorMessage}</p>
-								</div>
-							</div>
-						</div>
-						
 						<div class="flex-w flex-m m-t-20" style="justify-content: center">
 							<a href="/hsf/cart"
 							   class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
 								Return to Cart
 							</a>
 							
-							<a href="/hsf/payment"
+							<a href="/hsf/product"
 							   class="flex-c-m stext-101 cl0 size-107 bg1 bor2 hov-btn1 p-lr-15 trans-04 m-b-10">
-								Try Again
+								Shop
 							</a>
 						</div>
 					</div>
