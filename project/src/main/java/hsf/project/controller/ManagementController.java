@@ -2,6 +2,7 @@ package hsf.project.controller;
 
 import hsf.project.pojo.*;
 import hsf.project.service.*;
+import hsf.project.service.impl.OrderServiceImpl;
 import jakarta.servlet.http.HttpSession;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,7 @@ public class ManagementController {
     BlindboxService blindboxService;
     BrandService brandService;
     ItemService itemService;
+    OrderServiceImpl orderService;
     //=======================================================================================================
     //Mapping
     @GetMapping
@@ -82,6 +84,8 @@ public class ManagementController {
                 return "redirect:/login";
             }
         }
+        List<Orders> orders = orderService.getAll();
+        session.setAttribute("orders", orders);
         return "orderManagement";
     }
 
@@ -185,6 +189,19 @@ public class ManagementController {
 
     //=======================================================================================================
     //Order
+    @PostMapping("/order/update")
+    public String updateOrder(HttpSession session, int id, String paymentStatus, String status) {
+        Users user = (Users) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login";
+        } else {
+            if (!user.getRole().getRole().equals("ADMIN")) {
+                return "redirect:/login";
+            }
+        }
+        orderService.adminUpdateOrder(id, status, paymentStatus);
+        return "redirect:/management/order";
+    }
 
     //=======================================================================================================
     //User

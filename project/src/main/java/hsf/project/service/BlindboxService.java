@@ -1,6 +1,8 @@
 package hsf.project.service;
 
 import hsf.project.pojo.Blindbox;
+import hsf.project.pojo.Item;
+import hsf.project.pojo.Orders;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -33,4 +35,6 @@ public interface BlindboxService {
 
     List<Blindbox> ascendListBlindbox();
     List<Blindbox> descendListBlindbox();
+
+    List<Item> openBlindbox(int orderId);
 }

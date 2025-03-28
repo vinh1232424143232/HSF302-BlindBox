@@ -24,12 +24,13 @@ public class OrderServiceImpl {
     OrderDetailsRepository orderDetailsRepository;
     CartRepository cartRepository;
     CartDetailsRepository cartDetailsRepository;
+    BlindboxRepository blindboxRepository;
 
     public Orders findById(int id) {
         return orderRepository.findById(id).orElse(null);
     }
 
-    public List<Orders> findAll() {
+    public List<Orders> getAll() {
         return orderRepository.findAll();
     }
 
@@ -60,6 +61,8 @@ public class OrderServiceImpl {
         }
         if (!cartDetails.isEmpty()) {
             for (CartDetails cartDetail : cartDetails) {
+                cartDetail.getBlindbox().setStock(cartDetail.getBlindbox().getStock() - cartDetail.getQuantity());
+                blindboxRepository.save(cartDetail.getBlindbox());
                 cartDetailsRepository.delete(cartDetail);
             }
             cart.getCartDetailsList().clear();
@@ -75,6 +78,16 @@ public class OrderServiceImpl {
         if (address != null) {
             order.setAddress(address);
         }
+        orderRepository.save(order);
+    }
+
+    @Transactional
+    public void adminUpdateOrder(int id, String status, String paymentStatus) {
+        Orders order = findById(id);
+        PaymentStatus paymentStatusUpdate = PaymentStatus.valueOf(paymentStatus);
+        OrderStatus orderStatusUpdate = OrderStatus.valueOf(status);
+        order.setPaymentStatus(paymentStatusUpdate);
+        order.setStatus(orderStatusUpdate);
         orderRepository.save(order);
     }
 
@@ -97,6 +110,7 @@ public class OrderServiceImpl {
         Orders order = findById(id);
         orderRepository.delete(order);
     }
+
 
 
 

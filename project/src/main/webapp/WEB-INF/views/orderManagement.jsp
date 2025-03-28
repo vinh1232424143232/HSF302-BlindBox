@@ -252,8 +252,9 @@
 										</span>
 									</td>
 									<td>
-										<span class="badge ${order.status ? 'badge-success' : 'badge-danger'}">
-												${order.status ? 'Completed' : 'Pending'}
+										<span class="badge ${order.status == 'COMPLETED' ? 'badge-success' :
+												order.status == 'WAITING' ?'badge-secondary' : 'badge-danger'}">
+												${order.status}
 										</span>
 									</td>
 									<td>
@@ -267,9 +268,16 @@
 											<button type="button" class="btn btn-sm btn-info mr-2" data-toggle="modal" data-target="#viewOrderModal_${order.id}">
 												<i class="zmdi zmdi-eye"></i>
 											</button>
-											<button type="button" class="btn btn-sm btn-warning mr-2" data-toggle="modal" data-target="#editOrderModal_${order.id}">
-												<i class="zmdi zmdi-edit"></i>
-											</button>
+											<c:if test="${order.status == 'WAITING'}">
+												<button type="button" class="btn btn-sm btn-warning mr-2" data-toggle="modal" data-target="#editOrderModal_${order.id}">
+													<i class="zmdi zmdi-edit"></i>
+												</button>
+											</c:if>
+											<c:if test="${order.status == 'SHIPPING'}">
+												<button type="button" class="btn btn-sm btn-warning mr-2" data-toggle="modal" data-target="#editOrderModal_${order.id}">
+													<i class="zmdi zmdi-edit"></i>
+												</button>
+											</c:if>
 										</div>
 									</td>
 								</tr>
@@ -323,20 +331,16 @@
 								<option value="">All</option>
 								<option value="PAID">Paid</option>
 								<option value="PENDING">Pending</option>
-								<option value="FAILED">Failed</option>
+								<option value="CANCELLED">Cancelled</option>
 							</select>
 						</div>
 						<div class="form-group">
 							<label>Order Status</label>
 							<select name="status" class="form-control">
-								<option value="">All</option>
-								<option value="true">Completed</option>
-								<option value="false">Pending</option>
+								<option value="WAITING">Waiting</option>
+								<option value="SHIPPING">Shipping</option>
+								<option value="COMPLETED">Completed</option>
 							</select>
-						</div>
-						<div class="form-group">
-							<label>Date Range</label>
-							<input type="text" name="daterange" class="form-control" />
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -371,7 +375,7 @@
 								<h6 class="font-weight-bold">Order Information</h6>
 								<p>Order Date: <fmt:formatDate value="${order.createdAt}" pattern="dd-MM-yyyy HH:mm"/></p>
 								<p>Payment Status: ${order.paymentStatus}</p>
-								<p>Order Status: ${order.status ? 'Completed' : 'Pending'}</p>
+								<p>Order Status: ${order.status}</p>
 							</div>
 						</div>
 						<div class="row mb-4">
@@ -396,7 +400,7 @@
 										<tbody>
 										<c:forEach items="${order.orderDetailsList}" var="item">
 											<tr>
-												<td>${item.product.name}</td>
+												<td>${item.blindbox.name}</td>
 												<td>$${item.price}</td>
 												<td>${item.quantity}</td>
 												<td>$${item.price * item.quantity}</td>
@@ -433,22 +437,31 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-					<form action="${pageContext.request.contextPath}/admin/order/edit" method="post">
+					<form action="/hsf/management/order/update" method="post">
 						<div class="modal-body">
 							<input type="hidden" name="id" value="${order.id}">
 							<div class="form-group">
 								<label>Payment Status</label>
-								<select name="paymentStatus" class="form-control" required>
-									<option value="PAID" ${order.paymentStatus == 'PAID' ? 'selected' : ''}>Paid</option>
-									<option value="PENDING" ${order.paymentStatus == 'PENDING' ? 'selected' : ''}>Pending</option>
-									<option value="FAILED" ${order.paymentStatus == 'FAILED' ? 'selected' : ''}>Failed</option>
-								</select>
+								<c:if test="${order.paymentStatus == 'PENDING'}">
+									<select name="paymentStatus" class="form-control" required>
+										<option value="PAID" ${order.paymentStatus == 'PAID' ? 'selected' : ''}>Paid</option>
+										<option value="PENDING" ${order.paymentStatus == 'PENDING' ? 'selected' : ''}>Pending</option>
+										<option value="CANCELLED" ${order.paymentStatus == 'CANCELLED' ? 'selected' : ''}>Cancelled</option>
+									</select>
+								</c:if>
+								<c:if test="${order.paymentStatus == 'PAID'}">
+									<input class="form-control" readonly>
+									<input type="hidden" name="paymentStatus" value="PAID">
+								</c:if>
 							</div>
 							<div class="form-group">
-								<div class="custom-control custom-switch">
-									<input type="checkbox" class="custom-control-input" id="orderStatus_${order.id}" name="status" ${order.status ? 'checked' : ''}>
-									<label class="custom-control-label" for="orderStatus_${order.id}">Mark as Completed</label>
-								</div>
+								<label>Order Status</label>
+								<select name="status" class="form-control" required>
+									<option value="WAITING" ${order.status == 'WAITING' ? 'selected' : ''}>WAITING</option>
+									<option value="SHIPPING" ${order.status == 'SHIPPING' ? 'selected' : ''}>SHIPPING</option>
+									<option value="COMPLETED" ${order.status == 'COMPLETED' ? 'selected' : ''}>COMPLETED</option>
+									<option value="CANCELLED" ${order.status == 'CANCELLED' ? 'selected' : ''}>CANCELLED</option>
+								</select>
 							</div>
 						</div>
 						<div class="modal-footer">

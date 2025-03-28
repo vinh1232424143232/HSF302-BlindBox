@@ -49,7 +49,7 @@
 
 				<!-- Logo desktop -->
 				<a href="/hsf/home" class="logo">
-					<img src="${pageContext.request.contextPath}images/icons/logo-01.png" alt="IMG-LOGO">
+					<img src="images/icons/logo-01.png" alt="IMG-LOGO">
 				</a>
 
 				<!-- Menu desktop -->
@@ -141,7 +141,8 @@
 									<th>Amount</th>
 									<th>Payment Status</th>
 									<th>Status</th>
-									<th>Action</th>
+									<th></th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -167,6 +168,16 @@
 											<button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#orderDetailModal${order.id}">
 												<i class="zmdi zmdi-eye"></i> View
 											</button>
+										</td>
+										<td>
+											<c:if test="${order.paymentStatus == 'PENDING'}">
+												<form action="/hsf/payment/create" method="post">
+													<button type="submit" class="btn btn-sm btn-primary">
+														<i class="zmdi zmdi-card"></i> Payment
+													</button>
+													<input type="hidden" name="orderId" value="${order.id}">
+												</form>
+											</c:if>
 										</td>
 									</tr>
 								</c:forEach>
@@ -265,6 +276,13 @@
 					</div>
 				</div>
 				<div class="modal-footer">
+					<c:if test="${order.status == 'COMPLETED'}">
+						<form action="/hsf/order/unbox" method="post">
+							<button type="submit" class="btn btn-primary">Unbox</button>
+							<input type="hidden" name="orderId" value="${order.id}">
+						</form>
+
+					</c:if>
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 				</div>
 			</div>

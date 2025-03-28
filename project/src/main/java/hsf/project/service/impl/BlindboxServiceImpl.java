@@ -1,10 +1,11 @@
 package hsf.project.service.impl;
 
-import hsf.project.pojo.Blindbox;
-import hsf.project.pojo.Brand;
+import hsf.project.pojo.*;
 import hsf.project.repository.BlindboxRepository;
 import hsf.project.repository.BrandRepository;
+import hsf.project.repository.OrderRepository;
 import hsf.project.service.BlindboxService;
+import hsf.project.service.ItemService;
 import hsf.project.service.SupabaseService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,8 @@ public class BlindboxServiceImpl implements BlindboxService {
     BlindboxRepository blindboxRepository;
     BrandRepository brandRepository;
     SupabaseService supabaseService;
+    ItemService itemService;
+    OrderRepository orderRepository;
 
     @Override
     public List<Blindbox> getAllBlindBoxes() {
@@ -174,5 +177,21 @@ public class BlindboxServiceImpl implements BlindboxService {
     @Override
     public int countActiveBlindBoxes() {
         return blindboxRepository.findByActiveTrue().size();
+    }
+
+    @Override
+    public List<Item> openBlindbox(int orderId) {
+        Orders orders = orderRepository.findById(orderId).orElse(null);
+        List<OrderDetails> orderDetailsList = orders.getOrderDetailsList();
+        List<Item> itemsList = new ArrayList<>();
+        if (!orderDetailsList.isEmpty()) {
+            for (OrderDetails orderDetails : orderDetailsList) {
+                for (int i=0; i<orderDetails.getQuantity(); i++) {
+                    Item item = itemService.getRandomItem(orderDetails.getBlindbox().getId());
+                    itemsList.add(item);
+                }
+            }
+        }
+        return itemsList;
     }
 }
