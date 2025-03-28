@@ -31,8 +31,7 @@ import java.util.Map;
 public class PaymentController {
     CartService cartService;
     VNPayService vnPayService;
-    OrderServiceImpl orderService;
-    UserService userService;
+
 
 
     @GetMapping

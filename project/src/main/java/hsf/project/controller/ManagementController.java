@@ -2,7 +2,6 @@ package hsf.project.controller;
 
 import hsf.project.pojo.*;
 import hsf.project.service.*;
-import hsf.project.service.impl.OrderServiceImpl;
 import jakarta.servlet.http.HttpSession;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +26,7 @@ public class ManagementController {
     BlindboxService blindboxService;
     BrandService brandService;
     ItemService itemService;
-    OrderServiceImpl orderService;
+    OrderService orderService;
     //=======================================================================================================
     //Mapping
     @GetMapping

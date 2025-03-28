@@ -6,6 +6,9 @@ import hsf.project.pojo.Users;
 import hsf.project.service.impl.AddressServiceImpl;
 import hsf.project.service.impl.UserServiceImpl;
 import jakarta.servlet.http.HttpSession;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -19,11 +22,10 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/address")
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AddressController {
-    @Autowired
-    private AddressServiceImpl addressServiceImpl;
-    @Autowired
-    private UserServiceImpl userServiceImpl;
+    AddressServiceImpl addressServiceImpl;
 
     @GetMapping()
     public String address(HttpSession session, Model model) {

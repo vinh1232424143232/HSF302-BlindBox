@@ -1,7 +1,9 @@
 package hsf.project.controller;
 
 import hsf.project.service.SupabaseService;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,8 +13,9 @@ import java.io.IOException;
 
 @Controller("/img")
 @RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class SupabaseController {
-    private final SupabaseService supabaseService;
+    SupabaseService supabaseService;
 
     @PostMapping("/upload")
     public String upload(@RequestParam("file") MultipartFile file) {

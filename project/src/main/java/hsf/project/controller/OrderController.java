@@ -5,7 +5,7 @@ import hsf.project.pojo.Item;
 import hsf.project.pojo.Users;
 import hsf.project.service.BlindboxService;
 import hsf.project.service.CartService;
-import hsf.project.service.impl.OrderServiceImpl;
+import hsf.project.service.OrderService;
 import jakarta.servlet.http.HttpSession;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class OrderController {
     CartService cartService;
-    OrderServiceImpl orderService;
+    OrderService orderService;
     BlindboxService blindboxService;
 
     @PostMapping("/create")

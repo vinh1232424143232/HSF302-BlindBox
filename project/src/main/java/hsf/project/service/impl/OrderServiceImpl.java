@@ -5,6 +5,7 @@ import hsf.project.enums.PaymentStatus;
 import hsf.project.mapper.OrderDetailMapper;
 import hsf.project.pojo.*;
 import hsf.project.repository.*;
+import hsf.project.service.OrderService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -16,9 +17,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class OrderServiceImpl {
+public class OrderServiceImpl implements OrderService {
     OrderRepository orderRepository;
-    UserRepository userRepository;
     AddressRepository addressRepository;
     OrderDetailMapper orderDetailMapper;
     OrderDetailsRepository orderDetailsRepository;

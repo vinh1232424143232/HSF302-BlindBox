@@ -2,15 +2,13 @@ package hsf.project.controller;
 
 import hsf.project.pojo.Orders;
 import hsf.project.pojo.Users;
+import hsf.project.service.OrderService;
 import hsf.project.service.UserService;
-import hsf.project.service.impl.OrderServiceImpl;
 import hsf.project.service.impl.RoleServiceImpl;
 import jakarta.servlet.http.HttpSession;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.apache.catalina.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +21,6 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
-
 @Controller
 @RequestMapping("/user")
 @RequiredArgsConstructor
@@ -32,7 +28,7 @@ import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 public class UserController {
     UserService userService;
     RoleServiceImpl roleServiceImpl;
-    OrderServiceImpl orderServiceImpl;
+    OrderService orderService;
 
 
     @GetMapping()
@@ -81,7 +77,7 @@ public class UserController {
         if (users == null) {
             return "redirect:/login";
         }
-        List<Orders> ordersList = orderServiceImpl.getOrdersByUser(users);
+        List<Orders> ordersList = orderService.getOrdersByUser(users);
         session.setAttribute("orders", ordersList);
 
         return "order";
